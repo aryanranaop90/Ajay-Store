@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- NO-REFERRER: Hotlink blocking aur 403 Forbidden errors ko bypass karta hai -->
   <meta name="referrer" content="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>AJAY STORE — Feel Comfort For Everyone</title>
+  <title>AJAY STORE — Feel Comfort For Everyone (Est. 1993)</title>
 
   <!-- Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,10 +17,13 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
   <style>
+    /* DYNAMIC CSS VARIABLES (CONTROLLED LIVE BY ADMIN THEME STUDIO) */
     :root {
       --primary: #0a0f1d;
+      --primary-light: #161f36;
       --accent: #d4a373;
       --accent-soft: #faedcd;
+      --bg: #f8fafc;
       --surface: #ffffff;
       --surface-subtle: #f8fafc;
       --border: #e2e8f0;
@@ -35,8 +37,9 @@
       --radius-md: 14px;
       --radius-lg: 20px;
       --radius-full: 9999px;
-      --shadow-sheet: 0 -10px 40px rgba(0, 0, 0, 0.18);
+      --shadow-sheet: 0 -12px 45px rgba(0, 0, 0, 0.2);
       --bottom-nav-height: 64px;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
@@ -48,10 +51,11 @@
     }
 
     body {
-      background-color: #f1f5f9;
+      background-color: var(--bg);
       color: var(--text);
       line-height: 1.4;
       padding-bottom: calc(var(--bottom-nav-height) + 24px);
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .app-viewport {
@@ -76,6 +80,7 @@
       justify-content: space-between;
       align-items: center;
       font-weight: 600;
+      transition: background 0.3s ease;
     }
     .status-badge {
       display: inline-flex;
@@ -92,6 +97,20 @@
       height: 6px;
       background: #10b981;
       border-radius: 50%;
+      box-shadow: 0 0 6px #10b981;
+    }
+
+    /* USER GREETING BAR */
+    .user-greeting-strip {
+      padding: 6px 16px;
+      background: rgba(212, 163, 115, 0.12);
+      border-bottom: 1px solid rgba(212, 163, 115, 0.25);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
     }
 
     /* HEADER */
@@ -119,6 +138,7 @@
       color: var(--primary);
       line-height: 1.1;
       text-transform: uppercase;
+      transition: color 0.3s;
     }
     .brand-title span { color: var(--accent); }
     .brand-subtitle {
@@ -129,9 +149,14 @@
       text-transform: uppercase;
       margin-top: 2px;
     }
+    .header-actions-cluster {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
     .icon-circle-btn {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: var(--radius-full);
       background: var(--surface-subtle);
       border: 1px solid var(--border);
@@ -139,9 +164,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
+      font-size: 0.95rem;
       cursor: pointer;
       position: relative;
+      transition: all 0.2s;
     }
     .count-pill {
       position: absolute;
@@ -149,7 +175,7 @@
       right: -3px;
       background: var(--primary);
       color: #fff;
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 800;
       min-width: 17px;
       height: 17px;
@@ -190,41 +216,88 @@
       font-size: 0.85rem;
     }
 
-    /* HERO BANNER CARD */
-    .hero-container { margin: 12px 14px; }
-    .hero-banner-card {
-      background: linear-gradient(135deg, #070b15 0%, #18223c 60%, #0a0f1d 100%);
-      border-radius: var(--radius-lg);
-      padding: 22px 18px;
-      color: #ffffff;
-      position: relative;
+    /* FREE DELIVERY PROGRESS BAR */
+    .delivery-threshold-box {
+      margin: 8px 14px;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+    }
+    .delivery-threshold-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--success);
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .delivery-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 9999px;
       overflow: hidden;
     }
-    .hero-banner-card::after {
-      content: '1993';
+    .delivery-bar-fill {
+      height: 100%;
+      background: var(--success);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* DYNAMIC CLICKABLE BANNER CAROUSEL */
+    .banner-carousel-wrap {
+      margin: 10px 14px 6px 14px;
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 25px -5px rgba(0,0,0,0.12);
+    }
+    .banner-slides-track {
+      display: flex;
+      transition: transform 0.4s var(--ease);
+    }
+    .banner-slide-item {
+      min-width: 100%;
+      position: relative;
+      background: var(--primary);
+      color: #fff;
+      padding: 24px 20px;
+      overflow: hidden;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .banner-slide-bg {
       position: absolute;
-      right: -8px;
-      bottom: -15px;
-      font-family: 'Syne', sans-serif;
-      font-size: 5rem;
-      font-weight: 800;
-      color: rgba(255,255,255,0.04);
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.38;
       pointer-events: none;
     }
-    .hero-banner-card h2 {
+    .banner-slide-content {
+      position: relative;
+      z-index: 2;
+    }
+    .banner-slide-content h2 {
       font-size: 1.35rem;
       font-weight: 800;
       line-height: 1.25;
       margin-bottom: 6px;
     }
-    .hero-banner-card p {
+    .banner-slide-content p {
       font-size: 0.78rem;
-      color: #94a3b8;
+      color: #cbd5e1;
       margin-bottom: 12px;
-      max-width: 320px;
+      max-width: 300px;
     }
     .coupon-chip {
-      background: rgba(212, 163, 115, 0.15);
+      background: rgba(212, 163, 115, 0.2);
       border: 1px dashed var(--accent);
       color: var(--accent-soft);
       padding: 6px 12px;
@@ -233,6 +306,27 @@
       font-weight: 800;
       cursor: pointer;
       display: inline-block;
+    }
+    .banner-dots-row {
+      position: absolute;
+      bottom: 8px;
+      right: 14px;
+      display: flex;
+      gap: 5px;
+      z-index: 3;
+    }
+    .banner-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .banner-dot.active {
+      width: 16px;
+      border-radius: 4px;
+      background: var(--accent);
     }
 
     /* CATEGORIES BAR */
@@ -265,7 +359,7 @@
       box-shadow: 0 2px 8px rgba(10, 15, 29, 0.15);
     }
 
-    /* FEED CONTROLS */
+    /* FEED HEADER */
     .feed-controls {
       display: flex;
       justify-content: space-between;
@@ -310,7 +404,6 @@
     }
     .product-card:active { transform: scale(0.98); }
 
-    /* IMAGE CONTAINER (ZERO DUMMIES — SHOWS REAL IMAGE OR CLEAN ICON) */
     .product-media-wrap {
       position: relative;
       aspect-ratio: 3 / 4;
@@ -336,7 +429,7 @@
       justify-content: center;
       background: #f8fafc;
       color: var(--text-dim);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       padding: 10px;
     }
@@ -512,27 +605,58 @@
       background: var(--surface);
     }
 
-    .size-chips-grid {
-      display: flex;
+    /* SIZE PICKER TILES (WITH RATES & KHATAM HO GAYA BADGES) */
+    .size-tiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
       gap: 10px;
       margin: 14px 0;
     }
-    .size-chip {
-      flex: 1;
-      text-align: center;
+    .size-tile {
       border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 10px 0;
-      font-weight: 800;
-      font-size: 0.85rem;
+      border-radius: var(--radius-md);
+      padding: 10px;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      background: var(--surface);
+      transition: all 0.2s;
+      position: relative;
     }
-    .size-chip.selected {
+    .size-tile.selected {
       border-color: var(--primary);
-      background: var(--primary);
-      color: #fff;
+      background: #f1f5f9;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    .size-tile-name {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .size-tile-rate {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .size-tile.out-of-stock {
+      opacity: 0.55;
+      background: #f8fafc;
+      border-color: #e2e8f0;
+      cursor: not-allowed;
+    }
+    .khatam-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--danger);
+      background: #fee2e2;
+      padding: 2px 5px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 3px;
     }
 
+    /* CART & ORDER ITEMS */
     .cart-row {
       display: flex;
       gap: 12px;
@@ -570,13 +694,14 @@
       color: var(--text-muted);
       margin-bottom: 5px;
     }
-    .form-group input, .form-group textarea {
+    .form-group input, .form-group textarea, .form-group select {
       width: 100%;
       padding: 10px 12px;
       border: 1.5px solid var(--border);
       border-radius: var(--radius-sm);
       font-size: 0.88rem;
       outline: none;
+      background: #fff;
     }
 
     .pay-grid {
@@ -636,6 +761,117 @@
       cursor: pointer;
     }
 
+    /* SAVED ADDRESS CARDS */
+    .saved-addr-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      position: relative;
+    }
+    .saved-addr-card.active-default {
+      border-color: var(--accent);
+      background: rgba(212, 163, 115, 0.08);
+    }
+    .default-badge {
+      background: var(--accent);
+      color: #000;
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    /* TRACKING TIMELINE */
+    .track-step-row {
+      display: flex;
+      gap: 14px;
+      position: relative;
+      padding-bottom: 20px;
+    }
+    .track-step-row:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 26px;
+      bottom: 0;
+      width: 2px;
+      background: #cbd5e1;
+    }
+    .track-step-row.completed:not(:last-child)::after {
+      background: var(--success);
+    }
+    .track-step-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      z-index: 2;
+    }
+    .track-step-row.completed .track-step-icon {
+      background: var(--success);
+    }
+
+    /* INTERSTITIAL OFFER POPUP MODAL */
+    .interstitial-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 29, 0.75);
+      backdrop-filter: blur(5px);
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .interstitial-modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .interstitial-card {
+      background: var(--primary);
+      color: #fff;
+      width: 100%;
+      max-width: 360px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+      position: relative;
+      border: 2px solid var(--accent);
+      animation: popIn 0.3s var(--ease);
+    }
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .interstitial-close-btn {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     /* BOTTOM NAV */
     .bottom-nav {
       position: fixed;
@@ -668,10 +904,10 @@
       color: var(--text-dim);
       cursor: pointer;
       position: relative;
-      width: 33.3%;
+      width: 25%;
       padding: 6px 0;
     }
-    .bottom-nav-item.active { color: var(--primary); }
+    .bottom-nav-item.active { color: var(--primary); font-weight: 800; }
     .bottom-nav-item i { font-size: 1.15rem; }
     .bottom-nav-item span { font-size: 0.65rem; font-weight: 700; }
     .nav-badge {
@@ -697,7 +933,7 @@
       font-weight: 700;
       padding: 9px 18px;
       border-radius: var(--radius-full);
-      z-index: 1200;
+      z-index: 3500;
       opacity: 0;
       pointer-events: none;
       transition: all 0.25s ease;
@@ -720,6 +956,14 @@
       <span id="topNoticeHours">10:00 AM – 8:30 PM</span>
     </div>
 
+    <!-- USER GREETING STRIP -->
+    <div class="user-greeting-strip" id="userGreetingStrip" style="display:none;">
+      <span>Namaste, <strong id="greetingUserName">Customer</strong>!</span>
+      <span onclick="openAddressManagerSheet()" style="text-decoration:underline; cursor:pointer;">
+        <i class="fa-solid fa-location-dot"></i> <span id="currentDefaultAddrTag">Saved Address</span>
+      </span>
+    </div>
+
     <!-- HEADER -->
     <header class="app-header">
       <div class="header-main-row">
@@ -727,8 +971,11 @@
           <div class="brand-title">AJAY STORE<span>.</span></div>
           <div class="brand-subtitle">FEEL COMFORT FOR EVERYONE • EST. 1993</div>
         </div>
-        <div style="display:flex; gap:8px;">
-          <button class="icon-circle-btn" onclick="openWishlistSheet()">
+        <div class="header-actions-cluster">
+          <button class="icon-circle-btn" onclick="openAuthSheet()" title="Account / Login">
+            <i class="fa-solid fa-user"></i>
+          </button>
+          <button class="icon-circle-btn" onclick="openWishlistSheet()" title="Wishlist">
             <i class="fa-solid fa-heart"></i>
             <span class="count-pill" id="wishlistBadge">0</span>
           </button>
@@ -741,19 +988,24 @@
       </div>
     </header>
 
-    <!-- HERO BANNER -->
-    <div class="hero-container">
-      <div class="hero-banner-card">
-        <span style="font-size:0.68rem; font-weight:800; color:var(--accent); letter-spacing:1px;">OFFICIAL STORE PORTAL</span>
-        <h2 id="heroTitle">Welcome to AJAY STORE</h2>
-        <p id="heroSubtitle">Premium Garments, Daily Wear & Complete Hosiery collection in Jhumari Telaiya.</p>
-        <div class="coupon-chip" onclick="applyCouponDirect(livePromoCode)">
-          CODE: <strong id="heroPromoBadge">WELCOME50</strong>
-        </div>
+    <!-- FREE DELIVERY PROGRESS BAR (₹499 THRESHOLD) -->
+    <div class="delivery-threshold-box">
+      <div class="delivery-threshold-label">
+        <span id="deliveryProgressText">Add items for FREE Delivery</span>
+        <span id="deliveryBadgeText">₹40 Delivery</span>
+      </div>
+      <div class="delivery-bar-bg">
+        <div class="delivery-bar-fill" id="deliveryBarFill"></div>
       </div>
     </div>
 
-    <!-- CATEGORIES -->
+    <!-- DYNAMIC MULTI-BANNER CAROUSEL (CLICKABLE WITH ACTION LINKS) -->
+    <div class="banner-carousel-wrap">
+      <div class="banner-slides-track" id="bannerSlidesTrack"></div>
+      <div class="banner-dots-row" id="bannerDotsRow"></div>
+    </div>
+
+    <!-- CATEGORIES BAR -->
     <div class="categories-bar" id="categoriesBar">
       <button class="cat-btn active" onclick="selectCategory('All', this)">All Items</button>
     </div>
@@ -764,10 +1016,10 @@
       <span class="item-count-text" id="catalogItemCount"></span>
     </div>
 
-    <!-- PRODUCT GRID (REAL PRODUCTS ONLY — ZERO DUMMIES) -->
+    <!-- PRODUCT GRID (LIVE FIREBASE SYNC) -->
     <main class="product-grid" id="productGrid"></main>
 
-    <!-- FOOTER INFO -->
+    <!-- STORE FOOTER -->
     <div style="margin: 20px 14px; background:var(--surface-subtle); border:1px solid var(--border); border-radius:var(--radius-md); padding:16px;">
       <h5 style="font-size:1rem; font-weight:800; margin-bottom:4px;">AJAY STORE (Est. 1993)</h5>
       <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">Station Road, Lohani Gali, Jhumari Telaiya, Koderma, Jharkhand - 825409</p>
@@ -779,7 +1031,7 @@
     </div>
   </div>
 
-  <!-- BOTTOM NAVIGATION -->
+  <!-- NATIVE BOTTOM NAVIGATION -->
   <nav class="bottom-nav">
     <button class="bottom-nav-item active" onclick="switchTab('shop', this)">
       <i class="fa-solid fa-store"></i>
@@ -787,7 +1039,11 @@
     </button>
     <button class="bottom-nav-item" onclick="openOrderTrackerSheet()">
       <i class="fa-solid fa-clock-rotate-left"></i>
-      <span>Orders</span>
+      <span>Track</span>
+    </button>
+    <button class="bottom-nav-item" onclick="openAddressManagerSheet()">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
     </button>
     <button class="bottom-nav-item" onclick="openCartSheet()">
       <i class="fa-solid fa-bag-shopping"></i>
@@ -798,58 +1054,62 @@
 
   <div class="sheet-scrim" id="sheetScrim" onclick="closeAllSheets()"></div>
 
-  <!-- SIZE SELECTOR -->
+  <!-- 1. SIZE & RATE SELECTOR BOTTOM SHEET (WITH SIZE-WISE PRICING & KHATAM HO GAYA) -->
   <div class="bottom-sheet" id="sizeSelectorSheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
-      <h4>Select Size</h4>
+      <h4>Select Size & Rate</h4>
       <button onclick="closeAllSheets()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
     </div>
     <div class="sheet-body">
-      <h5 id="sizeSheetTitle" style="font-size:0.95rem; font-weight:700;"></h5>
-      <div id="sizeSheetPrice" style="font-size:1.1rem; font-weight:800; color:var(--primary); margin: 4px 0 14px 0;"></div>
-      <div class="size-chips-grid">
-<div class="size-chip" onclick="pickSize('1-2yr', this)">1-2yr</div>
-<div class="size-chip" onclick="pickSize('2-3yr', this)">2-3yr</div>
-<div class="size-chip" onclick="pickSize('3-4yr', this)">3-4yr</div>
-<div class="size-chip" onclick="pickSize('4-5yr', this)">4-5yr</div>
-<div class="size-chip" onclick="pickSize('5-6yr', this)">5-6yr</div>
-<div class="size-chip" onclick="pickSize('6-7yr', this)">6-7yr</div>
-<div class="size-chip" onclick="pickSize('7-8yr', this)">7-8yr</div>
-<div class="size-chip" onclick="pickSize('8-9yr', this)">8-9yr</div>
-<div class="size-chip" onclick="pickSize('10yr', this)">10yr</div>
-<div class="size-chip" onclick="pickSize('11yr', this)">11yr</div>
-<div class="size-chip" onclick="pickSize('12yr', this)">12yr</div>
-<div class="size-chip" onclick="pickSize('13yr', this)">13yr</div>
-<div class="size-chip" onclick="pickSize('14yr', this)">14yr</div>
-        <div class="size-chip" onclick="pickSize('S', this)">S</div>
-        <div class="size-chip selected" onclick="pickSize('M', this)">M</div>
-        <div class="size-chip" onclick="pickSize('L', this)">L</div>
-        <div class="size-chip" onclick="pickSize('XL', this)">XL</div>
-        <div class="size-chip" onclick="pickSize('XXL', this)">XXL</div>
+      <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+        <img id="sizeSheetImg" src="" style="width:50px; height:60px; object-fit:cover; border-radius:6px; background:#f1f5f9;" />
+        <div>
+          <h5 id="sizeSheetTitle" style="font-size:0.92rem; font-weight:700;"></h5>
+          <div id="sizeSheetLivePrice" style="font-size:1.15rem; font-weight:800; color:var(--primary);"></div>
+        </div>
       </div>
-      <button class="btn-cta" onclick="confirmAddToCart()">Confirm & Add to Bag</button>
+
+      <div style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">
+        Available Sizes for <span id="sizeSheetCategoryName">Garment</span>:
+      </div>
+
+      <!-- DYNAMIC TILES: SIZES, EXACT RATES & KHATAM HO GAYA DISPLAY -->
+      <div class="size-tiles-grid" id="sizeTilesGrid"></div>
+
+      <button class="btn-cta" id="confirmAddBagBtn" onclick="confirmAddToCart()">
+        Confirm Size & Add to Bag
+      </button>
     </div>
   </div>
 
-  <!-- CART -->
+  <!-- 2. SHOPPING BAG / CART SHEET WITH DELIVERY FEE -->
   <div class="bottom-sheet" id="cartSheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
-      <h4>Your Bag</h4>
+      <h4>Shopping Bag</h4>
       <button onclick="closeAllSheets()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
     </div>
     <div class="sheet-body" id="cartItemsList"></div>
     <div class="sheet-footer">
+      <div style="display:flex; gap:8px; margin-bottom:10px;">
+        <input type="text" id="cartCouponInput" placeholder="Enter Coupon (e.g. WELCOME50)" style="flex:1; padding:8px 12px; border:1.5px solid var(--border); border-radius:var(--radius-sm); font-size:0.8rem; text-transform:uppercase;" />
+        <button onclick="applyCartCoupon()" style="background:var(--primary); color:#fff; border:none; padding:0 14px; border-radius:var(--radius-sm); font-size:0.8rem; font-weight:700; cursor:pointer;">Apply</button>
+      </div>
+
       <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:4px;">
         <span>Subtotal</span>
         <span id="sheetSubtotal">₹0</span>
       </div>
-      <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:8px; color:var(--success);">
+      <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:4px; color:var(--success);">
         <span>Discount Voucher</span>
         <span id="sheetDiscount">- ₹0</span>
       </div>
-      <div style="display:flex; justify-content:space-between; font-size:1.05rem; font-weight:800; border-top:1px dashed var(--border); padding-top:8px; margin-bottom:12px;">
+      <div style="display:flex; justify-content:space-between; font-size:0.82rem; margin-bottom:6px;">
+        <span>Delivery Fee (Jhumari Telaiya)</span>
+        <span id="sheetDeliveryFee" style="font-weight:700;">₹40</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:1.1rem; font-weight:800; border-top:1px dashed var(--border); padding-top:8px; margin-bottom:12px;">
         <span>Total Payable</span>
         <span id="sheetTotalPayable">₹0</span>
       </div>
@@ -857,57 +1117,134 @@
     </div>
   </div>
 
-  <!-- CHECKOUT -->
+  <!-- 3. CHECKOUT SHEET (SAVED ADDRESSES & UPI QR) -->
   <div class="bottom-sheet" id="checkoutSheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
-      <h4>Delivery & Payment</h4>
+      <h4>Complete Order</h4>
       <button onclick="closeAllSheets()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
     </div>
     <div class="sheet-body">
       <form id="checkoutForm" onsubmit="submitOrder(event)">
+        <div id="savedAddressSelectorBox" style="display:none; margin-bottom:12px;">
+          <label style="font-size:0.72rem; font-weight:800; text-transform:uppercase; color:var(--text-muted);">Choose Saved Address:</label>
+          <select id="checkoutSavedAddrSelect" class="form-group" onchange="applySelectedSavedAddress(this.value)"></select>
+        </div>
+
         <div class="form-group">
-          <label>Your Full Name *</label>
+          <label>Full Name *</label>
           <input type="text" id="orderName" required placeholder="Enter customer name" />
         </div>
         <div class="form-group">
-          <label>WhatsApp / Mobile Number *</label>
-          <input type="tel" id="orderPhone" required pattern="[0-9]{10}" placeholder="10-digit number" />
+          <label>Phone / WhatsApp Number *</label>
+          <input type="tel" id="orderPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number" />
         </div>
         <div class="form-group">
           <label>Delivery Address in Jhumari Telaiya *</label>
-          <textarea id="orderAddress" rows="2" required placeholder="House/Shop No., Landmark"></textarea>
+          <textarea id="orderAddress" rows="2" required placeholder="House/Shop No., Street/Road, Landmark"></textarea>
         </div>
 
-        <label style="font-size:0.72rem; font-weight:800; text-transform:uppercase; color:var(--text-muted);">Payment Mode</label>
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
+          <input type="checkbox" id="saveAddressCheckbox" checked style="width:16px; height:16px; accent-color:var(--primary);" />
+          <label for="saveAddressCheckbox" style="font-size:0.8rem; font-weight:600; cursor:pointer;">Save as Permanent / Default Address</label>
+        </div>
+
+        <label style="font-size:0.72rem; font-weight:800; text-transform:uppercase; color:var(--text-muted);">Payment Method</label>
         <div class="pay-grid">
           <div class="pay-opt active" id="payCOD" onclick="setPayment('Cash On Delivery')">Cash On Delivery</div>
-          <div class="pay-opt" id="payUPI" onclick="setPayment('UPI / Online')">UPI Scan / Pay</div>
+          <div class="pay-opt" id="payUPI" onclick="setPayment('UPI / Online')">UPI Scan & Pay</div>
         </div>
 
+        <!-- DYNAMIC UPI QR SCAN BOX -->
         <div class="upi-qr-box" id="upiQrBox">
-          <h6 style="font-size:0.82rem; font-weight:800; margin-bottom:8px;">Scan with GPay, PhonePe, Paytm</h6>
+          <h6 style="font-size:0.82rem; font-weight:800; margin-bottom:6px;">Scan to Pay (GPay / PhonePe / Paytm)</h6>
           <img id="checkoutQrImg" referrerpolicy="no-referrer" src="" alt="Payment QR" />
           <div id="checkoutUpiIdText" style="font-size:0.75rem; font-weight:700; color:var(--primary); margin-top:6px;"></div>
         </div>
 
-        <div style="background:var(--surface-subtle); padding:10px; border-radius:var(--radius-sm); margin-bottom:14px; display:flex; justify-content:space-between; font-weight:800;">
-          <span>Payable Amount:</span>
-          <span id="checkoutAmount">₹0</span>
+        <div style="background:var(--surface-subtle); padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:14px; display:flex; justify-content:space-between; font-weight:800;">
+          <span>Final Amount (incl. Delivery):</span>
+          <span id="checkoutFinalAmountText">₹0</span>
         </div>
 
         <button type="submit" class="btn-cta">
-          <i class="fa-brands fa-whatsapp"></i> Confirm & Place Order via WhatsApp
+          <i class="fa-brands fa-whatsapp"></i> Confirm Order & Notify Admin on WhatsApp
         </button>
       </form>
     </div>
   </div>
 
-  <!-- ORDER TRACKER -->
+  <!-- 4. CUSTOMER LOGIN & REGISTER SHEET -->
+  <div class="bottom-sheet" id="authSheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h4 id="authSheetTitle">Customer Login / Register</h4>
+      <button onclick="closeAllSheets()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
+    </div>
+    <div class="sheet-body">
+      <div id="authLoggedOutView">
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:14px;">
+          Login to access saved addresses, faster checkout, and order history.
+        </p>
+        <form onsubmit="handleCustomerLogin(event)">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" id="authNameInput" required placeholder="e.g. Ramesh Kumar" />
+          </div>
+          <div class="form-group">
+            <label>10-Digit Mobile Number *</label>
+            <input type="tel" id="authPhoneInput" required pattern="[0-9]{10}" placeholder="Enter 10-digit phone" />
+          </div>
+          <button type="submit" class="btn-cta" style="background:var(--primary); margin-top:6px;">
+            Save & Continue
+          </button>
+        </form>
+      </div>
+
+      <div id="authLoggedInView" style="display:none;">
+        <div style="text-align:center; padding:16px 0;">
+          <div style="width:60px; height:60px; border-radius:50%; background:var(--accent-soft); color:#854d0e; display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin:0 auto 10px auto;">
+            <i class="fa-solid fa-user-check"></i>
+          </div>
+          <h4 id="profileDisplayName" style="font-size:1.1rem; font-weight:800;"></h4>
+          <p id="profileDisplayPhone" style="font-size:0.85rem; color:var(--text-muted);"></p>
+        </div>
+        <button class="add-bag-btn" style="margin-bottom:8px;" onclick="openAddressManagerSheet()">Manage Saved Addresses</button>
+        <button class="add-bag-btn" style="background:var(--danger);" onclick="handleCustomerLogout()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. SAVED ADDRESSES MANAGEMENT SHEET -->
+  <div class="bottom-sheet" id="addressManagerSheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h4>Saved Addresses</h4>
+      <button onclick="closeAllSheets()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
+    </div>
+    <div class="sheet-body">
+      <div id="savedAddressesList"></div>
+
+      <h5 style="font-size:0.9rem; font-weight:800; margin:16px 0 8px 0; border-top:1px solid var(--border); padding-top:12px;">+ Add New Address</h5>
+      <form onsubmit="handleAddNewAddress(event)">
+        <div class="form-group">
+          <label>Address Tag (e.g. Home, Shop, Office)</label>
+          <input type="text" id="newAddrTag" required placeholder="Home / Dukan" />
+        </div>
+        <div class="form-group">
+          <label>Full Address in Jhumari Telaiya</label>
+          <textarea id="newAddrText" rows="2" required placeholder="Street, Lohani Gali, Landmark"></textarea>
+        </div>
+        <button type="submit" class="add-bag-btn">Save Address</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. LIVE ORDER TRACKING SHEET (SHOWS DELIVERY PARTNER & NOTES) -->
   <div class="bottom-sheet" id="trackerSheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
-      <h4>Order Tracking</h4>
+      <h4>Order Tracking & Status</h4>
       <button onclick="closeAllSheets()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
     </div>
     <div class="sheet-body">
@@ -920,7 +1257,7 @@
     </div>
   </div>
 
-  <!-- WISHLIST -->
+  <!-- 7. WISHLIST SHEET -->
   <div class="bottom-sheet" id="wishlistSheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
@@ -930,8 +1267,29 @@
     <div class="sheet-body" id="wishlistList"></div>
   </div>
 
+  <!-- 8. INTERSTITIAL OFFER POPUP BANNER (LIVE FROM ADMIN) -->
+  <div class="interstitial-modal-overlay" id="interstitialModal">
+    <div class="interstitial-card">
+      <button class="interstitial-close-btn" onclick="closeInterstitial()">&times;</button>
+      <img id="interstitialImg" src="" style="width:100%; height:150px; object-fit:cover; display:none;" alt="Special Offer" />
+      <div style="padding:18px; text-align:center;">
+        <span style="font-size:0.65rem; font-weight:800; background:#f59e0b; color:#000; padding:2px 8px; border-radius:9999px; text-transform:uppercase;">Special Festival Offer</span>
+        <h3 id="interstitialTitle" style="font-size:1.2rem; font-weight:800; margin:10px 0 4px 0;">Special Offer!</h3>
+        <p id="interstitialDesc" style="font-size:0.78rem; color:#cbd5e1; margin-bottom:12px;"></p>
+        <div style="background:rgba(255,255,255,0.08); padding:10px; border-radius:var(--radius-sm); border:1px dashed var(--accent); margin-bottom:12px;">
+          <span style="font-size:0.7rem; color:#94a3b8; display:block; margin-bottom:2px;">Use Coupon Code:</span>
+          <div id="interstitialCode" style="font-size:1.1rem; font-weight:800; color:var(--accent);">WELCOME50</div>
+        </div>
+        <button class="btn-cta" id="applyOfferPopupBtn" onclick="applyInterstitialOfferCode()">
+          Apply Coupon & Shop Now
+        </button>
+      </div>
+    </div>
+  </div>
+
   <div class="app-toast" id="appToast">Notification</div>
 
+  <!-- SCRIPT LOGIC -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBwrRLKt8pYSYiuULgTCGgCTIXLD77nPXs",
@@ -943,14 +1301,17 @@
       appId: "1:550489994542:web:6ba47fba0b9416876576bf"
     };
 
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
     let catalog = JSON.parse(localStorage.getItem('ajay_store_products')) || [];
     let customCategories = JSON.parse(localStorage.getItem('ajay_store_categories')) || [];
     let coupons = JSON.parse(localStorage.getItem('ajay_store_coupons')) || [];
+    let cart = JSON.parse(localStorage.getItem('ajay_store_cart')) || [];
+    let wishlist = JSON.parse(localStorage.getItem('ajay_store_wishlist')) || [];
+    let customerUser = JSON.parse(localStorage.getItem('ajay_store_customer')) || null;
+    let savedAddresses = JSON.parse(localStorage.getItem('ajay_store_addresses')) || [];
+
     let storeSettings = JSON.parse(localStorage.getItem('ajay_store_settings')) || {
       upiId: '7979931269@upi',
       payeeName: 'AMIT KUMAR JAIN',
@@ -958,26 +1319,51 @@
       bannerTitle: 'Welcome to AJAY STORE',
       bannerSubtitle: 'Premium Garments, Daily Wear & Complete Hosiery collection in Jhumari Telaiya.',
       topNotice: 'Lohani Gali, Station Road • 10:00 AM – 8:30 PM',
-      bannerPromo: 'WELCOME50'
+      bannerPromo: 'WELCOME50',
+      banners: [
+        {
+          title: "All Sizes from XS/35 to XXXL/105",
+          subtitle: "Exact size breakdown & pure comfort fabrics since 1993.",
+          bg: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800",
+          link: ""
+        }
+      ],
+      interstitial: {
+        enabled: true,
+        title: "Special Festive Discount!",
+        desc: "Get Flat ₹100 Off on orders above ₹499.",
+        coupon: "FESTIVE100",
+        image: ""
+      }
     };
 
-    let cart = JSON.parse(localStorage.getItem('ajay_store_cart')) || [];
-    let wishlist = JSON.parse(localStorage.getItem('ajay_store_wishlist')) || [];
     let activeCategory = 'All';
-    let selectedSize = 'M';
     let currentPendingProduct = null;
+    let selectedSizeChoice = null;
     let paymentMode = 'Cash On Delivery';
-    let couponDiscount = 0;
-    let livePromoCode = 'WELCOME50';
+    let appliedCouponDiscount = 0;
+    const DELIVERY_STANDARD_FEE = 40;
+    const FREE_DELIVERY_THRESHOLD = 499;
 
-    // SMART IMAGE CONVERTER (ZERO DUMMY IMAGES — HANDLES ONLY REAL URLS)
+    // LIVE THEME APPLIER (TRANSFORMS STORE LOOK IN REALTIME)
+    function applyDynamicTheme(themeObj) {
+      if (!themeObj) return;
+      const root = document.documentElement;
+      if (themeObj.primary) root.style.setProperty('--primary', themeObj.primary);
+      if (themeObj.accent) root.style.setProperty('--accent', themeObj.accent);
+      if (themeObj.bg) {
+        root.style.setProperty('--bg', themeObj.bg);
+        document.body.style.backgroundColor = themeObj.bg;
+      }
+    }
+
+    // SMART IMAGE LINK CONVERTER
     function cleanImgUrl(url) {
       if (!url || typeof url !== 'string') return '';
       url = url.trim();
       if (!url) return '';
-      if (url.startsWith('data:image/')) return url; // Base64 direct image
+      if (url.startsWith('data:image/')) return url;
 
-      // Google Drive resolver
       if (url.includes('drive.google.com') || url.includes('docs.google.com')) {
         const m = url.match(/\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
         if (m && m[1]) {
@@ -985,7 +1371,6 @@
         }
       }
 
-      // Dropbox direct raw link
       if (url.includes('dropbox.com')) {
         return url.replace('www.dropbox.com', 'dl.dropboxusercontent.com').replace(/[?&]dl=0/, '');
       }
@@ -996,10 +1381,8 @@
       return url;
     }
 
-    // MULTI-TIER IMAGE FALLBACK (Bypasses hotlink protection without dummy photos)
     function handleImgError(img, origUrl) {
       const step = parseInt(img.dataset.step || '0', 10);
-      
       if (step === 0 && origUrl && origUrl.length > 5) {
         img.dataset.step = '1';
         if (origUrl.includes('drive.google.com')) {
@@ -1009,18 +1392,17 @@
             return;
           }
         }
-        // Try global image cache proxy for hotlink-protected links
         img.src = `https://images.weserv.nl/?url=${encodeURIComponent(origUrl)}`;
         return;
       }
-
-      // Clean neutral placeholder ONLY if link is completely broken (Zero Dummy Clothes Photos)
       img.style.display = 'none';
       const placeholder = img.parentElement.querySelector('.product-media-placeholder');
       if (placeholder) placeholder.style.display = 'flex';
     }
 
+    // FIREBASE REALTIME LISTENERS
     function setupFirebaseListeners() {
+      // Live Products
       db.ref('products').on('value', snap => {
         const val = snap.val();
         catalog = val ? (Array.isArray(val) ? val : Object.values(val)) : [];
@@ -1028,6 +1410,7 @@
         renderProducts();
       });
 
+      // Live Categories
       db.ref('categories').on('value', snap => {
         const val = snap.val();
         customCategories = val ? (Array.isArray(val) ? val : Object.values(val)) : [];
@@ -1035,29 +1418,130 @@
         renderCategories();
       });
 
+      // Live Coupons
       db.ref('coupons').on('value', snap => {
         const val = snap.val();
         coupons = val ? (Array.isArray(val) ? val : Object.values(val)) : [];
         localStorage.setItem('ajay_store_coupons', JSON.stringify(coupons));
       });
 
+      // Live Settings, Banners, Themes & Interstitial Popup
       db.ref('settings').on('value', snap => {
         const val = snap.val();
         if (val) {
-          storeSettings = val;
+          storeSettings = { ...storeSettings, ...val };
           localStorage.setItem('ajay_store_settings', JSON.stringify(storeSettings));
-          document.getElementById('heroTitle').innerText = val.bannerTitle || 'Welcome to AJAY STORE';
-          document.getElementById('heroSubtitle').innerText = val.bannerSubtitle || 'Premium Garments, Daily Wear & Complete Hosiery collection.';
           document.getElementById('topNoticeAddress').innerText = val.topNotice || 'Lohani Gali, Station Road';
-          if (val.bannerPromo) {
-            livePromoCode = val.bannerPromo;
-            document.getElementById('heroPromoBadge').innerText = val.bannerPromo;
-          }
+          
+          if (val.theme) applyDynamicTheme(val.theme);
+          renderBannerCarousel();
           updateCheckoutQrUI();
+          triggerInterstitialOffer(val.interstitial);
         }
       });
     }
 
+    // INTERSTITIAL OFFER BANNER TRIGGER
+    let interstitialShown = false;
+    function triggerInterstitialOffer(interObj) {
+      if (!interObj || interObj.enabled === false || interstitialShown) return;
+      interstitialShown = true;
+
+      document.getElementById('interstitialTitle').innerText = interObj.title || 'Special Offer!';
+      document.getElementById('interstitialDesc').innerText = interObj.desc || 'Flat discount on your order today.';
+      document.getElementById('interstitialCode').innerText = interObj.coupon || 'WELCOME50';
+
+      const imgEl = document.getElementById('interstitialImg');
+      if (interObj.image) {
+        imgEl.src = cleanImgUrl(interObj.image);
+        imgEl.style.display = 'block';
+      } else {
+        imgEl.style.display = 'none';
+      }
+
+      setTimeout(() => {
+        document.getElementById('interstitialModal').classList.add('active');
+      }, 1200);
+    }
+
+    function closeInterstitial() {
+      document.getElementById('interstitialModal').classList.remove('active');
+    }
+
+    function applyInterstitialOfferCode() {
+      const code = document.getElementById('interstitialCode').innerText.trim();
+      applyCouponDirect(code);
+      closeInterstitial();
+      showToast(`Coupon ${code} applied to your cart!`);
+    }
+
+    // CLICKABLE MULTI-BANNER CAROUSEL WITH ACTION LINKS
+    let currentBannerIdx = 0;
+    function renderBannerCarousel() {
+      const track = document.getElementById('bannerSlidesTrack');
+      const dotsRow = document.getElementById('bannerDotsRow');
+      const list = storeSettings.banners && storeSettings.banners.length ? storeSettings.banners : [
+        {
+          title: storeSettings.bannerTitle || "Welcome to AJAY STORE",
+          subtitle: storeSettings.bannerSubtitle || "Feel Comfort For Everyone • Est. 1993",
+          bg: "",
+          link: ""
+        }
+      ];
+
+      track.innerHTML = '';
+      dotsRow.innerHTML = '';
+
+      list.forEach((b, idx) => {
+        const slide = document.createElement('div');
+        slide.className = 'banner-slide-item';
+        slide.onclick = () => {
+          if (b.link) {
+            if (b.link.startsWith('#category-')) {
+              const catName = b.link.replace('#category-', '');
+              selectCategory(catName);
+            } else {
+              window.open(b.link, '_blank');
+            }
+          }
+        };
+
+        slide.innerHTML = `
+          ${b.bg ? `<img src="${cleanImgUrl(b.bg)}" class="banner-slide-bg" alt="Banner" onerror="this.style.display='none'" />` : ''}
+          <div class="banner-slide-content">
+            <span style="font-size:0.68rem; font-weight:800; color:var(--accent); letter-spacing:1px; text-transform:uppercase;">Official Store Portal</span>
+            <h2>${b.title}</h2>
+            <p>${b.subtitle}</p>
+            <div class="coupon-chip" onclick="event.stopPropagation(); applyCouponDirect('${storeSettings.bannerPromo || 'WELCOME50'}')">
+              CODE: <strong>${storeSettings.bannerPromo || 'WELCOME50'}</strong>
+            </div>
+          </div>
+        `;
+        track.appendChild(slide);
+
+        const dot = document.createElement('div');
+        dot.className = `banner-dot ${idx === 0 ? 'active' : ''}`;
+        dot.onclick = () => goToBannerSlide(idx);
+        dotsRow.appendChild(dot);
+      });
+    }
+
+    function goToBannerSlide(idx) {
+      currentBannerIdx = idx;
+      const track = document.getElementById('bannerSlidesTrack');
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      document.querySelectorAll('.banner-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+    }
+
+    setInterval(() => {
+      const dots = document.querySelectorAll('.banner-dot');
+      if (dots.length > 1) {
+        currentBannerIdx = (currentBannerIdx + 1) % dots.length;
+        goToBannerSlide(currentBannerIdx);
+      }
+    }, 5500);
+
+    // CATEGORIES
     function renderCategories() {
       const container = document.getElementById('categoriesBar');
       container.innerHTML = `<button class="cat-btn ${activeCategory === 'All' ? 'active' : ''}" onclick="selectCategory('All', this)">All Items</button>`;
@@ -1079,7 +1563,7 @@
       renderProducts();
     }
 
-    // GUARANTEED REAL IMAGE RENDERER (NO DUMMY STOCK PHOTOS)
+    // PRODUCT RENDERER
     function renderProducts() {
       const q = document.getElementById('searchInput').value.toLowerCase().trim();
       let list = catalog.filter(p => {
@@ -1108,7 +1592,6 @@
         const stockNum = Number(p.stock) || 0;
         const isOutOfStock = stockNum <= 0;
 
-        // Discount calculation: only show when oldPrice > price
         const hasDiscount = p.oldPrice && Number(p.oldPrice) > Number(p.price);
         const discountPct = hasDiscount ? Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100) : 0;
 
@@ -1145,7 +1628,7 @@
               ${hasDiscount ? `<span class="price-old">₹${p.oldPrice}</span>` : ''}
             </div>
             <button class="add-bag-btn" ${isOutOfStock ? 'disabled' : ''} onclick="openSizePicker('${p.id}')">
-              <i class="fa-solid fa-bag-shopping"></i> ${isOutOfStock ? 'Out of Stock' : 'Select Size'}
+              <i class="fa-solid fa-bag-shopping"></i> ${isOutOfStock ? 'Khatam ho gaya' : 'Select Size'}
             </button>
           </div>
         `;
@@ -1153,69 +1636,148 @@
       });
     }
 
+    // SIZE-WISE PRICING & STOCK ENGINE
+    function getProductSizeVariants(product) {
+      // 1. If admin explicitly defined size-wise variants in admin panel
+      if (product.sizeVariants && Array.isArray(product.sizeVariants) && product.sizeVariants.length > 0) {
+        return product.sizeVariants.map(v => ({
+          size: v.size,
+          rate: Number(v.price) || Number(product.price) || 0,
+          inStock: (Number(v.stock) || 0) > 0
+        }));
+      }
+
+      // 2. Default Category-Mapped sizes if not customized
+      const cat = (product.category || '').toLowerCase();
+      const basePrice = Number(product.price) || 0;
+      const totalStock = Number(product.stock) || 0;
+
+      if (cat.includes('kid') || cat.includes('child') || cat.includes('baby')) {
+        return [
+          { size: '25', rate: basePrice, inStock: totalStock > 0 },
+          { size: '27', rate: basePrice + 10, inStock: totalStock > 1 },
+          { size: '29', rate: basePrice + 20, inStock: totalStock > 2 },
+          { size: '32', rate: basePrice + 30, inStock: totalStock > 3 },
+          { size: '36', rate: basePrice + 40, inStock: totalStock > 4 }
+        ];
+      }
+
+      return [
+        { size: 'XS/35', rate: Math.max(30, basePrice - 20), inStock: totalStock > 0 },
+        { size: 'S/80', rate: Math.max(30, basePrice - 10), inStock: totalStock > 1 },
+        { size: 'M/85', rate: basePrice, inStock: totalStock > 0 },
+        { size: 'L/90', rate: basePrice + 10, inStock: totalStock > 2 },
+        { size: 'XL/95', rate: basePrice + 20, inStock: totalStock > 3 },
+        { size: 'XXL/100', rate: basePrice + 35, inStock: totalStock > 4 },
+        { size: 'XXXL/105', rate: basePrice + 50, inStock: totalStock > 5 }
+      ];
+    }
+
     function openSizePicker(productId) {
       const p = catalog.find(i => String(i.id) === String(productId));
       if (!p) return;
       currentPendingProduct = p;
-      selectedSize = 'M';
 
+      document.getElementById('sizeSheetImg').src = cleanImgUrl(p.image);
       document.getElementById('sizeSheetTitle').innerText = p.name;
-      document.getElementById('sizeSheetPrice').innerText = `₹${p.price}`;
+      document.getElementById('sizeSheetCategoryName').innerText = p.category || 'Garment';
 
-      document.querySelectorAll('.size-chip').forEach(c => {
-        c.classList.toggle('selected', c.innerText === 'M');
+      const variants = getProductSizeVariants(p);
+      const grid = document.getElementById('sizeTilesGrid');
+      grid.innerHTML = '';
+
+      const firstInStock = variants.find(s => s.inStock) || variants[0];
+      selectedSizeChoice = firstInStock;
+      document.getElementById('sizeSheetLivePrice').innerText = `₹${firstInStock.rate}`;
+
+      variants.forEach(item => {
+        const tile = document.createElement('div');
+        tile.className = `size-tile ${item.inStock ? '' : 'out-of-stock'} ${item.size === firstInStock.size && item.inStock ? 'selected' : ''}`;
+        tile.innerHTML = `
+          <div class="size-tile-name">${item.size}</div>
+          <div class="size-tile-rate">₹${item.rate}</div>
+          ${item.inStock ? '' : '<span class="khatam-badge">(Khatam ho gaya)</span>'}
+        `;
+
+        if (item.inStock) {
+          tile.onclick = () => {
+            document.querySelectorAll('.size-tile').forEach(t => t.classList.remove('selected'));
+            tile.classList.add('selected');
+            selectedSizeChoice = item;
+            document.getElementById('sizeSheetLivePrice').innerText = `₹${item.rate}`;
+          };
+        }
+        grid.appendChild(tile);
       });
+
+      const confirmBtn = document.getElementById('confirmAddBagBtn');
+      confirmBtn.disabled = !firstInStock.inStock;
+      confirmBtn.innerText = firstInStock.inStock ? `Add Size (${firstInStock.size}) @ ₹${firstInStock.rate}` : 'Size Khatam ho gaya';
 
       openSheet('sizeSelectorSheet');
     }
 
-    function pickSize(size, el) {
-      selectedSize = size;
-      document.querySelectorAll('.size-chip').forEach(c => c.classList.remove('selected'));
-      el.classList.add('selected');
-    }
-
     function confirmAddToCart() {
-      if (!currentPendingProduct) return;
+      if (!currentPendingProduct || !selectedSizeChoice) return;
       const p = currentPendingProduct;
+      const choice = selectedSizeChoice;
 
-      const existing = cart.find(i => String(i.id) === String(p.id) && i.size === selectedSize);
+      const existing = cart.find(i => String(i.id) === String(p.id) && i.size === choice.size);
       if (existing) {
         existing.qty += 1;
       } else {
         cart.push({
           id: p.id,
           name: p.name,
-          price: p.price,
+          price: choice.rate,
+          size: choice.size,
           image: cleanImgUrl(p.image),
-          size: selectedSize,
           qty: 1
         });
       }
 
       closeAllSheets();
       updateCartUI();
-      showToast(`Added ${p.name} (${selectedSize}) to Bag`);
+      showToast(`Added ${p.name} (${choice.size}) @ ₹${choice.rate}`);
     }
 
+    // CART & DELIVERY FEE CALCULATION
     function updateCartUI() {
       localStorage.setItem('ajay_store_cart', JSON.stringify(cart));
       const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
       document.getElementById('bottomNavCartBadge').innerText = totalCount;
 
       const container = document.getElementById('cartItemsList');
+      const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+
+      // Delivery Calculation: ₹40 standard, FREE > ₹499
+      let deliveryFee = DELIVERY_STANDARD_FEE;
+      if (subtotal >= FREE_DELIVERY_THRESHOLD || subtotal === 0) {
+        deliveryFee = 0;
+      }
+
+      const deliveryFill = Math.min(100, Math.round((subtotal / FREE_DELIVERY_THRESHOLD) * 100));
+      document.getElementById('deliveryBarFill').style.width = `${deliveryFill}%`;
+      if (subtotal >= FREE_DELIVERY_THRESHOLD) {
+        document.getElementById('deliveryProgressText').innerText = "🎉 You unlocked FREE Delivery!";
+        document.getElementById('deliveryBadgeText').innerText = "FREE";
+      } else {
+        const remaining = FREE_DELIVERY_THRESHOLD - subtotal;
+        document.getElementById('deliveryProgressText').innerText = `Add ₹${remaining} more for FREE Delivery!`;
+        document.getElementById('deliveryBadgeText').innerText = `₹${DELIVERY_STANDARD_FEE} Delivery`;
+      }
+
       if (cart.length === 0) {
         container.innerHTML = `<p style="text-align:center; padding:40px; font-size:0.85rem; color:var(--text-muted);">Your bag is currently empty.</p>`;
         document.getElementById('sheetSubtotal').innerText = '₹0';
         document.getElementById('sheetDiscount').innerText = '- ₹0';
+        document.getElementById('sheetDeliveryFee').innerText = '₹0';
         document.getElementById('sheetTotalPayable').innerText = '₹0';
         return;
       }
 
-      let subtotal = 0;
       container.innerHTML = '';
       cart.forEach(item => {
-        subtotal += (item.price * item.qty);
         const row = document.createElement('div');
         row.className = 'cart-row';
         row.innerHTML = `
@@ -1223,7 +1785,7 @@
           <div class="cart-row-details">
             <div style="font-size:0.85rem; font-weight:700;">${item.name}</div>
             <div style="font-size:0.72rem; color:var(--text-muted);">Size: <strong>${item.size}</strong></div>
-            <div style="font-size:0.9rem; font-weight:800; color:var(--primary);">₹${item.price}</div>
+            <div style="font-size:0.9rem; font-weight:800; color:var(--primary);">₹${item.price} each</div>
           </div>
           <div class="qty-box">
             <button onclick="changeQty('${item.id}', '${item.size}', -1)">-</button>
@@ -1234,11 +1796,12 @@
         container.appendChild(row);
       });
 
-      const grandTotal = Math.max(0, subtotal - couponDiscount);
+      const grandTotal = Math.max(0, subtotal - appliedCouponDiscount + deliveryFee);
       document.getElementById('sheetSubtotal').innerText = `₹${subtotal}`;
-      document.getElementById('sheetDiscount').innerText = `- ₹${couponDiscount}`;
+      document.getElementById('sheetDiscount').innerText = `- ₹${appliedCouponDiscount}`;
+      document.getElementById('sheetDeliveryFee').innerText = deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`;
       document.getElementById('sheetTotalPayable').innerText = `₹${grandTotal}`;
-      document.getElementById('checkoutAmount').innerText = `₹${grandTotal}`;
+      document.getElementById('checkoutFinalAmountText').innerText = `₹${grandTotal}`;
     }
 
     function changeQty(id, size, delta) {
@@ -1250,26 +1813,74 @@
       updateCartUI();
     }
 
+    function applyCartCoupon() {
+      const code = document.getElementById('cartCouponInput').value.trim().toUpperCase();
+      applyCouponDirect(code);
+    }
+
     function applyCouponDirect(code) {
-      const matched = coupons.find(c => c.code === code);
       const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+      const matched = coupons.find(c => c.code === code);
 
       if (matched) {
         if (matched.minOrder && subtotal < matched.minOrder) {
-          showToast(`Minimum cart value for ${code} is ₹${matched.minOrder}`);
+          showToast(`Min order for ${code} is ₹${matched.minOrder}`);
           return;
         }
         if (matched.type === 'percent') {
-          couponDiscount = Math.round((subtotal * Number(matched.discount)) / 100);
+          appliedCouponDiscount = Math.round((subtotal * Number(matched.discount)) / 100);
         } else {
-          couponDiscount = Number(matched.discount) || 0;
+          appliedCouponDiscount = Number(matched.discount) || 0;
         }
-        showToast(`Coupon ${code} applied: -₹${couponDiscount}!`);
+        showToast(`Coupon ${code} applied: -₹${appliedCouponDiscount}!`);
       } else if (code === 'WELCOME50') {
-        couponDiscount = 50;
+        appliedCouponDiscount = 50;
         showToast("Coupon WELCOME50 applied: -₹50!");
+      } else {
+        showToast("Invalid promo voucher code");
       }
       updateCartUI();
+    }
+
+    // CHECKOUT & SAVED ADDRESS INTEGRATION
+    function proceedToCheckout() {
+      if (cart.length === 0) {
+        showToast("Your bag is empty!");
+        return;
+      }
+      closeAllSheets();
+
+      if (customerUser) {
+        document.getElementById('orderName').value = customerUser.name || '';
+        document.getElementById('orderPhone').value = customerUser.phone || '';
+      }
+
+      populateCheckoutSavedAddresses();
+      openSheet('checkoutSheet');
+    }
+
+    function populateCheckoutSavedAddresses() {
+      const box = document.getElementById('savedAddressSelectorBox');
+      const select = document.getElementById('checkoutSavedAddrSelect');
+
+      if (savedAddresses.length > 0) {
+        box.style.display = 'block';
+        select.innerHTML = '<option value="">-- Choose from your Saved Addresses --</option>';
+        savedAddresses.forEach((a, idx) => {
+          select.innerHTML += `<option value="${idx}">${a.tag}: ${a.address.substring(0, 35)}... ${a.isDefault ? '(Default)' : ''}</option>`;
+        });
+
+        const def = savedAddresses.find(a => a.isDefault) || savedAddresses[0];
+        if (def) document.getElementById('orderAddress').value = def.address;
+      } else {
+        box.style.display = 'none';
+      }
+    }
+
+    function applySelectedSavedAddress(idx) {
+      if (idx !== '' && savedAddresses[idx]) {
+        document.getElementById('orderAddress').value = savedAddresses[idx].address;
+      }
     }
 
     function setPayment(mode) {
@@ -1293,20 +1904,37 @@
       document.getElementById('checkoutUpiIdText').innerText = `UPI: ${upi}`;
     }
 
+    // SUBMIT ORDER TO FIREBASE + NOTIFY ADMIN VIA WHATSAPP
     function submitOrder(e) {
       e.preventDefault();
 
       const name = document.getElementById('orderName').value.trim();
       const phone = document.getElementById('orderPhone').value.trim();
       const address = document.getElementById('orderAddress').value.trim();
+      const saveAddrChecked = document.getElementById('saveAddressCheckbox').checked;
       const orderId = 'AJ-' + Math.floor(100000 + Math.random() * 900000);
 
       const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
-      const grandTotal = Math.max(0, subtotal - couponDiscount);
+      let deliveryFee = subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY_STANDARD_FEE;
+      const grandTotal = Math.max(0, subtotal - appliedCouponDiscount + deliveryFee);
+
+      if (saveAddrChecked) {
+        const exists = savedAddresses.find(a => a.address === address);
+        if (!exists) {
+          savedAddresses.push({ tag: 'Delivery Address', address: address, isDefault: true });
+          localStorage.setItem('ajay_store_addresses', JSON.stringify(savedAddresses));
+        }
+      }
+
+      if (!customerUser) {
+        customerUser = { name, phone };
+        localStorage.setItem('ajay_store_customer', JSON.stringify(customerUser));
+        updateUserHeader();
+      }
 
       let itemsText = '';
       cart.forEach((i, idx) => {
-        itemsText += `${idx + 1}. ${i.name} (Size: ${i.size}) x ${i.qty} = ₹${i.price * i.qty}\n`;
+        itemsText += `${idx + 1}. ${i.name} [Size: ${i.size}] x ${i.qty} = ₹${i.price * i.qty}\n`;
       });
 
       const orderRecord = {
@@ -1316,54 +1944,168 @@
         deliveryAddress: address,
         paymentType: paymentMode,
         purchasedItems: cart,
+        subtotal: subtotal,
+        discountApplied: appliedCouponDiscount,
+        deliveryFee: deliveryFee,
         totalAmount: grandTotal,
-        discountApplied: couponDiscount,
         orderDate: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString(),
-        status: 'Confirmed'
+        status: 'Confirmed',
+        tracking: {
+          status: 'Confirmed',
+          person: 'Store Assigned',
+          notes: 'Order received at Lohani Gali store'
+        }
       };
 
-      // Direct write to Firebase Realtime DB
+      // Direct write to Firebase
       db.ref('orders/' + orderId).set(orderRecord)
-        .then(() => console.log("Order saved to Firebase RTDB"))
-        .catch(err => console.error("Firebase write error:", err));
+        .then(() => console.log("Order synced to Firebase RTDB"))
+        .catch(err => console.error("Firebase error:", err));
 
+      // Admin Confirmation Message to Amit Kumar Jain (+91 7979931269)
       const message = 
-`🛍️ *NEW ORDER: ${orderId}*
+`🛍️ *NEW ORDER RECEIVED: ${orderId}*
 *AJAY STORE — JHUMARI TELAIYA*
-----------------------------------
+---------------------------------------
 👤 *Customer:* ${name}
-📞 *Phone:* ${phone}
+📞 *Mobile:* ${phone}
 📍 *Address:* ${address}
-----------------------------------
+---------------------------------------
 📦 *ITEMS ORDERED:*
 ${itemsText}
-----------------------------------
+---------------------------------------
 💰 *Subtotal:* ₹${subtotal}
-🏷️ *Discount:* ₹${couponDiscount}
-💵 *Payable Total:* ₹${grandTotal}
+🏷️ *Discount:* ₹${appliedCouponDiscount}
+🚚 *Delivery:* ${deliveryFee === 0 ? 'FREE' : '₹' + deliveryFee}
+💵 *FINAL PAYABLE:* ₹${grandTotal}
 💳 *Payment Mode:* ${paymentMode}
-----------------------------------
-Please confirm and arrange local delivery.`;
+---------------------------------------
+Please confirm delivery timeline.`;
 
       cart = [];
-      couponDiscount = 0;
+      appliedCouponDiscount = 0;
       updateCartUI();
       closeAllSheets();
 
+      // Transmit to Admin WhatsApp
       const encoded = encodeURIComponent(message);
       window.open(`https://wa.me/917979931269?text=${encoded}`, '_blank');
-      showToast(`Order ${orderId} placed & synced to Firebase!`);
+      showToast(`Order ${orderId} placed & transmitted!`);
     }
 
+    // CUSTOMER AUTH & SAVED ADDRESSES
+    function updateUserHeader() {
+      const strip = document.getElementById('userGreetingStrip');
+      if (customerUser) {
+        strip.style.display = 'flex';
+        document.getElementById('greetingUserName').innerText = customerUser.name;
+        const def = savedAddresses.find(a => a.isDefault);
+        document.getElementById('currentDefaultAddrTag').innerText = def ? def.tag : 'Add Address';
+
+        document.getElementById('authLoggedOutView').style.display = 'none';
+        document.getElementById('authLoggedInView').style.display = 'block';
+        document.getElementById('profileDisplayName').innerText = customerUser.name;
+        document.getElementById('profileDisplayPhone').innerText = customerUser.phone;
+      } else {
+        strip.style.display = 'none';
+        document.getElementById('authLoggedOutView').style.display = 'block';
+        document.getElementById('authLoggedInView').style.display = 'none';
+      }
+    }
+
+    function handleCustomerLogin(e) {
+      e.preventDefault();
+      const name = document.getElementById('authNameInput').value.trim();
+      const phone = document.getElementById('authPhoneInput').value.trim();
+
+      customerUser = { name, phone };
+      localStorage.setItem('ajay_store_customer', JSON.stringify(customerUser));
+      updateUserHeader();
+      closeAllSheets();
+      showToast(`Welcome back, ${name}!`);
+    }
+
+    function handleCustomerLogout() {
+      customerUser = null;
+      localStorage.removeItem('ajay_store_customer');
+      updateUserHeader();
+      closeAllSheets();
+      showToast("Logged out successfully");
+    }
+
+    function openAuthSheet() {
+      updateUserHeader();
+      openSheet('authSheet');
+    }
+
+    function openAddressManagerSheet() {
+      closeAllSheets();
+      renderSavedAddressesList();
+      openSheet('addressManagerSheet');
+    }
+
+    function renderSavedAddressesList() {
+      const container = document.getElementById('savedAddressesList');
+      if (savedAddresses.length === 0) {
+        container.innerHTML = '<p style="font-size:0.8rem; color:var(--text-muted); text-align:center; padding:12px;">No addresses saved yet.</p>';
+        return;
+      }
+
+      container.innerHTML = '';
+      savedAddresses.forEach((addr, idx) => {
+        const card = document.createElement('div');
+        card.className = `saved-addr-card ${addr.isDefault ? 'active-default' : ''}`;
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong>${addr.tag}</strong>
+            ${addr.isDefault ? '<span class="default-badge">Default</span>' : `<button onclick="setDefaultAddress(${idx})" style="background:none; border:none; font-size:0.75rem; color:var(--accent); cursor:pointer;">Set Default</button>`}
+          </div>
+          <p style="font-size:0.8rem; color:var(--text-muted);">${addr.address}</p>
+          <button onclick="deleteAddress(${idx})" style="background:none; border:none; font-size:0.72rem; color:var(--danger); margin-top:6px; cursor:pointer;">Delete</button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function handleAddNewAddress(e) {
+      e.preventDefault();
+      const tag = document.getElementById('newAddrTag').value.trim();
+      const text = document.getElementById('newAddrText').value.trim();
+
+      savedAddresses.push({ tag, address: text, isDefault: savedAddresses.length === 0 });
+      localStorage.setItem('ajay_store_addresses', JSON.stringify(savedAddresses));
+      renderSavedAddressesList();
+      updateUserHeader();
+      showToast("Address saved!");
+    }
+
+    function setDefaultAddress(idx) {
+      savedAddresses.forEach((a, i) => a.isDefault = (i === idx));
+      localStorage.setItem('ajay_store_addresses', JSON.stringify(savedAddresses));
+      renderSavedAddressesList();
+      updateUserHeader();
+    }
+
+    function deleteAddress(idx) {
+      savedAddresses.splice(idx, 1);
+      if (savedAddresses.length > 0 && !savedAddresses.some(a => a.isDefault)) {
+        savedAddresses[0].isDefault = true;
+      }
+      localStorage.setItem('ajay_store_addresses', JSON.stringify(savedAddresses));
+      renderSavedAddressesList();
+      updateUserHeader();
+    }
+
+    // 5-STAGE LIVE ORDER TRACKING (SHOWS DISPATCHER & DELIVERY NOTES)
     function searchOrder() {
       const phone = document.getElementById('trackPhone').value.trim();
       const resultsBox = document.getElementById('trackResults');
-      resultsBox.innerHTML = `<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">Searching cloud database...</p>`;
+      resultsBox.innerHTML = `<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">Searching cloud orders...</p>`;
 
       db.ref('orders').once('value').then(snap => {
         const val = snap.val();
         if (!val) {
-          resultsBox.innerHTML = `<p style="font-size:0.8rem; color:var(--danger); text-align:center;">No past orders found.</p>`;
+          resultsBox.innerHTML = `<p style="font-size:0.8rem; color:var(--danger); text-align:center;">No orders found.</p>`;
           return;
         }
 
@@ -1375,24 +2117,62 @@ Please confirm and arrange local delivery.`;
           return;
         }
 
-        let html = '<div style="display:flex; flex-direction:column; gap:8px;">';
+        let html = '';
         matches.forEach(o => {
+          const s = (o.status || 'Confirmed').toLowerCase();
+          const isConfirmed = true;
+          const isProcessing = s === 'processing' || s === 'shipped' || s === 'delivered';
+          const isShipped = s === 'shipped' || s === 'delivered';
+          const isDelivered = s === 'delivered';
+
+          const trackInfo = o.tracking || {};
+
           html += `
-            <div style="background:var(--surface-subtle); border:1px solid var(--border); padding:10px; border-radius:8px; font-size:0.8rem;">
-              <div style="display:flex; justify-content:space-between; font-weight:800;">
+            <div style="background:var(--surface-subtle); border:1px solid var(--border); padding:14px; border-radius:var(--radius-md); margin-bottom:14px;">
+              <div style="display:flex; justify-content:space-between; font-weight:800; font-size:0.9rem;">
                 <span>${o.orderId}</span>
-                <span style="color:var(--success);">${o.status}</span>
+                <span style="color:${isDelivered ? 'var(--success)' : 'var(--accent)'}; text-transform:uppercase;">${o.status}</span>
               </div>
-              <div style="color:var(--text-muted); margin-top:2px;">${o.orderDate}</div>
-              <div style="font-weight:700; margin-top:4px;">Total: ₹${o.totalAmount} (${o.paymentType})</div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin:4px 0 10px 0;">Placed: ${o.orderDate}</div>
+
+              ${trackInfo.person ? `
+                <div style="background:rgba(212, 163, 115, 0.12); padding:8px 10px; border-radius:6px; font-size:0.75rem; margin-bottom:12px;">
+                  <strong><i class="fa-solid fa-person-biking"></i> Delivery Partner:</strong> ${trackInfo.person}<br>
+                  ${trackInfo.notes ? `<span style="color:var(--text-muted);"><strong>Note:</strong> ${trackInfo.notes}</span>` : ''}
+                </div>
+              ` : ''}
+
+              <!-- TIMELINE STEPS -->
+              <div style="margin:12px 0 14px 0;">
+                <div class="track-step-row ${isConfirmed ? 'completed' : ''}">
+                  <div class="track-step-icon"><i class="fa-solid fa-check"></i></div>
+                  <div><strong>Order Confirmed</strong><div style="font-size:0.7rem; color:var(--text-muted);">Store accepted order</div></div>
+                </div>
+                <div class="track-step-row ${isProcessing ? 'completed' : ''}">
+                  <div class="track-step-icon"><i class="fa-solid fa-box"></i></div>
+                  <div><strong>Processing & Packing</strong><div style="font-size:0.7rem; color:var(--text-muted);">Packed at Lohani Gali store</div></div>
+                </div>
+                <div class="track-step-row ${isShipped ? 'completed' : ''}">
+                  <div class="track-step-icon"><i class="fa-solid fa-motorcycle"></i></div>
+                  <div><strong>Dispatched / Out for Delivery</strong><div style="font-size:0.7rem; color:var(--text-muted);">Delivery partner on way</div></div>
+                </div>
+                <div class="track-step-row ${isDelivered ? 'completed' : ''}">
+                  <div class="track-step-icon"><i class="fa-solid fa-house-circle-check"></i></div>
+                  <div><strong>Delivered</strong><div style="font-size:0.7rem; color:var(--text-muted);">${isDelivered ? 'Delivery Complete' : 'Pending Delivery'}</div></div>
+                </div>
+              </div>
+
+              <div style="font-size:0.85rem; font-weight:800; border-top:1px dashed var(--border); padding-top:8px;">
+                Total: ₹${o.totalAmount} (${o.paymentType})
+              </div>
             </div>
           `;
         });
-        html += '</div>';
         resultsBox.innerHTML = html;
       });
     }
 
+    // MODAL & DRAWER HELPERS
     function openSheet(id) {
       closeAllSheets();
       document.getElementById('sheetScrim').classList.add('active');
@@ -1443,14 +2223,6 @@ Please confirm and arrange local delivery.`;
       renderProducts();
     }
 
-    function proceedToCheckout() {
-      if (cart.length === 0) {
-        showToast("Your bag is empty!");
-        return;
-      }
-      openSheet('checkoutSheet');
-    }
-
     function switchTab(tab, el) {
       document.querySelectorAll('.bottom-nav-item').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
@@ -1465,10 +2237,16 @@ Please confirm and arrange local delivery.`;
     }
 
     window.onload = function() {
+      // 1. Load cached theme & layout
+      if (storeSettings.theme) applyDynamicTheme(storeSettings.theme);
+      updateUserHeader();
       renderCategories();
+      renderBannerCarousel();
       renderProducts();
       updateCartUI();
       document.getElementById('wishlistBadge').innerText = wishlist.length;
+
+      // 2. Attach live Firebase RTDB sync
       setupFirebaseListeners();
     };
   </script>
