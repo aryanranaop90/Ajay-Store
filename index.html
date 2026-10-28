@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="referrer" content="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>AJAY STORE — Feel Comfort For Everyone (Est. 1993)</title>
+  <title>AJAY STORE — GSTIN: 20AMZPJ0161E1ZC (Est. 1993)</title>
 
   <!-- Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +43,7 @@
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Plus Jakarta Sans',-apple-system,sans-serif; }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',-apple-system,sans-serif; -webkit-tap-highlight-color:transparent; }
     body { background-color:var(--bg); color:var(--text); line-height:1.4; padding-bottom:calc(var(--bottom-nav-height) + 24px); transition:background-color 0.3s ease; }
     .app-viewport { max-width:520px; margin:0 auto; background:var(--surface); min-height:100vh; position:relative; box-shadow:0 0 50px rgba(0,0,0,0.08); }
     @media (min-width:1024px) { .app-viewport { max-width:1100px; } }
@@ -51,13 +51,14 @@
     /* BARS */
     .app-download-bar { background:linear-gradient(90deg,#1e293b,#0f172a); color:#fff; padding:8px 14px; display:none; justify-content:space-between; align-items:center; font-size:0.75rem; border-bottom:1px solid rgba(255,255,255,0.1); }
     .btn-download-apk { background:var(--accent); color:#000; padding:4px 10px; border-radius:var(--radius-full); font-weight:800; text-decoration:none; font-size:0.7rem; }
-    .app-top-notice { background:var(--primary); color:#cbd5e1; font-size:0.72rem; padding:8px 14px; display:flex; justify-content:space-between; align-items:center; font-weight:600; transition:background 0.3s; }
+    .app-top-notice { background:var(--primary); color:#cbd5e1; font-size:0.72rem; padding:8px 14px; display:flex; justify-content:space-between; align-items:center; font-weight:600; transition:background 0.3s; flex-wrap:wrap; gap:6px; }
     .status-badge { display:inline-flex; align-items:center; gap:5px; background:rgba(16,185,129,0.2); color:#34d399; padding:2px 8px; border-radius:var(--radius-full); font-size:0.68rem; }
     .status-dot { width:6px; height:6px; background:#10b981; border-radius:50%; }
+    .gst-tag { font-size:0.68rem; color:var(--accent); font-weight:700; background:rgba(212,163,115,0.15); padding:2px 6px; border-radius:4px; }
     .user-greeting-strip { padding:6px 16px; background:rgba(212,163,115,0.12); border-bottom:1px solid rgba(212,163,115,0.25); font-size:0.75rem; font-weight:700; display:flex; justify-content:space-between; align-items:center; color:var(--text); }
 
     /* HEADER */
-    header.app-header { position:sticky; top:0; z-index:800; background:rgba(255,255,255,0.96); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--border); padding:12px 16px; }
+    header.app-header { position:sticky; top:0; z-index:800; background:rgba(255, 255, 255, 0.96); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--border); padding:12px 16px; }
     .header-main-row { display:flex; justify-content:space-between; align-items:center; gap:12px; }
     .brand-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:1.35rem; font-weight:800; letter-spacing:-0.5px; color:var(--primary); line-height:1.1; text-transform:uppercase; }
     .brand-title span { color:var(--accent); }
@@ -99,7 +100,7 @@
     .product-media-wrap { position:relative; aspect-ratio:3/4; background:#f1f5f9; overflow:hidden; display:flex; align-items:center; justify-content:center; }
     .product-media-img { width:100%; height:100%; object-fit:cover; display:block; }
     .discount-tag { position:absolute; top:8px; left:8px; background:#000; color:#fff; font-size:0.65rem; font-weight:800; padding:3px 6px; border-radius:4px; z-index:2; }
-    .delivery-pill-tag { position:absolute; bottom:8px; left:8px; background:rgba(10,15,29,0.85); backdrop-filter:blur(4px); color:#fff; font-size:0.62rem; font-weight:800; padding:2px 6px; border-radius:4px; z-index:2; }
+    .delivery-pill-tag { position:absolute; bottom:8px; left:8px; background:rgba(10, 15, 29, 0.85); backdrop-filter:blur(4px); color:#fff; font-size:0.62rem; font-weight:800; padding:2px 6px; border-radius:4px; z-index:2; }
     .sold-out-tag { position:absolute; top:8px; left:8px; background:var(--danger); color:#fff; font-size:0.65rem; font-weight:800; padding:3px 6px; border-radius:4px; z-index:2; }
     .heart-btn { position:absolute; top:8px; right:8px; width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.92); border:none; display:flex; align-items:center; justify-content:center; color:var(--text-dim); font-size:0.85rem; cursor:pointer; z-index:2; }
     .heart-btn.active { color:var(--danger); background:#fee2e2; }
@@ -172,7 +173,7 @@
     .star-rating-box { display:flex; gap:6px; font-size:1.6rem; color:#cbd5e1; cursor:pointer; margin:8px 0; justify-content:center; }
     .star-rating-box i.rated { color:#f59e0b; }
 
-    /* ORDER ACTION BUTTONS IN TRACKER (CANCEL, RETURN & SIZE EXCHANGE) */
+    /* ACTION BUTTONS IN TRACKER (ALWAYS WORKING RETURN, EXCHANGE & CANCEL) */
     .btn-track-action { padding:7px 12px; border-radius:var(--radius-sm); font-size:0.75rem; font-weight:800; cursor:pointer; border:none; display:inline-flex; align-items:center; gap:5px; transition:0.2s; }
     .btn-cancel-order { background:#fee2e2; color:var(--danger); }
     .btn-return-order { background:#fef3c7; color:#b45309; }
@@ -208,13 +209,16 @@
       <a href="#" target="_blank" class="btn-download-apk" id="appDownloadBtn">Download APK</a>
     </div>
 
-    <!-- TOP STATUS -->
+    <!-- TOP STATUS WITH GSTIN -->
     <div class="app-top-notice">
-      <div style="display:flex; align-items:center; gap:8px;">
+      <div style="display:flex; align-items:center; gap:6px;">
         <span class="status-badge"><span class="status-dot"></span> OPEN</span>
         <span id="topNoticeAddress">Lohani Gali, Station Road</span>
       </div>
-      <span id="topNoticeHours">10:00 AM – 8:30 PM</span>
+      <div style="display:flex; align-items:center; gap:6px;">
+        <span class="gst-tag"><i class="fa-solid fa-file-invoice"></i> GSTIN: 20AMZPJ0161E1ZC</span>
+        <span id="topNoticeHours">10 AM – 8:30 PM</span>
+      </div>
     </div>
 
     <!-- GREETING -->
@@ -259,10 +263,13 @@
     <!-- PRODUCT GRID -->
     <main class="product-grid" id="productGrid"></main>
 
-    <!-- FOOTER -->
+    <!-- FOOTER WITH GST NUMBER -->
     <div style="margin:20px 14px; background:var(--surface-subtle); border:1px solid var(--border); border-radius:var(--radius-md); padding:16px;">
       <h5 style="font-size:1rem; font-weight:800; margin-bottom:4px;" id="footerStoreTitle">AJAY STORE (Est. 1993)</h5>
-      <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">Station Road, Lohani Gali, Jhumari Telaiya, Koderma, Jharkhand - 825409</p>
+      <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:4px;">Station Road, Lohani Gali, Jhumari Telaiya, Koderma, Jharkhand - 825409</p>
+      <div style="font-size:0.76rem; font-weight:800; color:var(--primary); margin-bottom:8px;">
+        <i class="fa-solid fa-shield-halved" style="color:var(--accent);"></i> GSTIN: 20AMZPJ0161E1ZC
+      </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap; font-size:0.75rem; margin-bottom:12px;">
         <a href="tel:7979931269" style="color:var(--primary); font-weight:700; text-decoration:none;"><i class="fa-solid fa-phone"></i> 7979931269</a>
         <span style="color:var(--text-dim);">•</span>
@@ -437,19 +444,19 @@
   </div>
 
   <!-- ==========================================================================
-       ORDER TRACKING, CANCEL, RETURN & REPLACE
+       ORDER TRACKING: SEARCH BY MOBILE NUMBER OR ORDER ID
        ========================================================================== -->
   <div class="bottom-sheet" id="trackerSheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
-      <h4><i class="fa-solid fa-phone-volume"></i> Track Orders by Mobile Number</h4>
+      <h4><i class="fa-solid fa-truck-fast"></i> Track, Cancel, Return & Replace</h4>
       <button onclick="closeAllSheets()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
     </div>
     <div class="sheet-body">
       <div class="form-group">
-        <label>Enter Registered Mobile Number</label>
+        <label>Enter Registered Mobile Number OR Order ID (e.g. AJ-123456)</label>
         <div style="display:flex; gap:8px;">
-          <input type="tel" id="trackPhone" pattern="[0-9]{10}" placeholder="10-digit number (e.g. 7979931269)" />
+          <input type="text" id="trackQueryInput" placeholder="Enter Mobile (10 digits) or Order ID" />
           <button class="btn-action-primary" style="background:var(--primary); padding:0 16px; border-radius:var(--radius-sm);" onclick="searchOrder()">Search</button>
         </div>
       </div>
@@ -457,7 +464,7 @@
     </div>
   </div>
 
-  <!-- SIZE EXCHANGE / REPLACEMENT SHEET (DELIVER HONE KE BAAD) -->
+  <!-- SIZE EXCHANGE / REPLACEMENT SHEET (ALWAYS OPENS INSTANTLY) -->
   <div class="bottom-sheet" id="exchangeModal">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
@@ -465,16 +472,14 @@
       <button onclick="closeExchangeModal()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
     </div>
     <div class="sheet-body">
-      <div style="background:var(--surface-subtle); padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:12px;">
+      <div style="background:var(--surface-subtle); padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:12px; border:1px solid var(--border);">
         <div style="font-size:0.85rem; font-weight:800;" id="exchOrderTitle"></div>
-        <div style="font-size:0.75rem; color:var(--text-muted);" id="exchItemSubtitle"></div>
+        <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;" id="exchItemSubtitle"></div>
       </div>
 
       <div class="form-group">
         <label>Select New Size Needed (नया साइज चुनें) *</label>
-        <select id="exchNewSizeSelect" class="form-group">
-          <!-- Populated dynamically based on category -->
-        </select>
+        <select id="exchNewSizeSelect" class="form-group"></select>
       </div>
 
       <div class="form-group">
@@ -484,15 +489,44 @@
           <option value="Size bada ho raha hai (Too Large / Loose)">Size bada ho raha hai (Too Large / Loose)</option>
           <option value="Fitting pasand nahi aayi (Fitting issue)">Fitting pasand nahi aayi (Fitting issue)</option>
           <option value="Kapde me defect hai (Defect in piece)">Kapde me defect hai (Defect in piece)</option>
+          <option value="Color change request">Color change request</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Pickup & Delivery Notes (Optional)</label>
-        <input type="text" id="exchCustomerNotes" placeholder="e.g. Please bring size L tomorrow morning" />
+        <input type="text" id="exchCustomerNotes" placeholder="e.g. Please send delivery boy for exchange tomorrow" />
       </div>
 
       <button class="btn-cta" onclick="submitSizeExchangeRequest()"><i class="fa-brands fa-whatsapp"></i> Confirm Size Replacement via WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- RETURN & REFUND MODAL -->
+  <div class="bottom-sheet" id="returnModal">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h4><i class="fa-solid fa-box-open"></i> Request Return & Refund</h4>
+      <button onclick="closeAllSheets()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
+    </div>
+    <div class="sheet-body">
+      <div style="background:var(--surface-subtle); padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:12px; border:1px solid var(--border);">
+        <div style="font-size:0.85rem; font-weight:800;" id="returnOrderTitle"></div>
+      </div>
+      <div class="form-group">
+        <label>Reason for Returning Product *</label>
+        <select id="returnReasonSelect" class="form-group">
+          <option value="Fabric quality issue">Fabric quality issue</option>
+          <option value="Defective / damaged cloth">Defective / damaged cloth</option>
+          <option value="Wrong item delivered">Wrong item delivered</option>
+          <option value="Changed mind">Changed mind</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Pickup Instructions</label>
+        <textarea id="returnNotesInput" rows="2" placeholder="e.g. Please pick up from Lohani Gali address"></textarea>
+      </div>
+      <button class="btn-cta" style="background:var(--primary);" onclick="submitReturnRequest()"><i class="fa-brands fa-whatsapp"></i> Confirm Return via WhatsApp</button>
     </div>
   </div>
 
@@ -552,6 +586,7 @@
     let wishlist = JSON.parse(localStorage.getItem('ajay_store_wishlist')) || [];
     let customerUser = JSON.parse(localStorage.getItem('ajay_store_customer')) || null;
     let savedAddresses = JSON.parse(localStorage.getItem('ajay_store_addresses')) || [];
+    let activeOrdersList = JSON.parse(localStorage.getItem('ajay_store_orders')) || [];
 
     let storeSettings = JSON.parse(localStorage.getItem('ajay_store_settings')) || {
       storeName: 'AJAY STORE', storeTagline: 'FEEL COMFORT FOR EVERYONE • EST. 1993', logoUrl: '',
@@ -572,6 +607,7 @@
     let currentRatingContext = null;
     let selectedStarsValue = 5;
     let currentExchangeContext = null;
+    let currentReturnContext = null;
 
     function applyDynamicTheme(themeObj) {
       if (!themeObj) return;
@@ -624,6 +660,12 @@
         renderCategories();
       });
 
+      db.ref('orders').on('value', snap => {
+        const val = snap.val();
+        activeOrdersList = val ? (Array.isArray(val) ? val : Object.values(val)) : [];
+        localStorage.setItem('ajay_store_orders', JSON.stringify(activeOrdersList));
+      });
+
       db.ref('coupons').on('value', snap => {
         const val = snap.val();
         coupons = val ? (Array.isArray(val) ? val : Object.values(val)) : [];
@@ -656,7 +698,7 @@
       } else { bar.style.display = 'none'; }
     }
 
-    // CAROUSEL WITH DYNAMIC CAPTIONS & SUBTITLES
+    // CAROUSEL
     let currentBannerIdx = 0;
     function renderBannerCarousel() {
       const track = document.getElementById('bannerSlidesTrack');
@@ -962,7 +1004,7 @@
     }
     function closeZoomLightbox() { document.getElementById('zoomLightbox').classList.remove('active'); }
 
-    // SIZES ENGINE (XS/75 TO XXXL/105 & KIDS)
+    // SIZES ENGINE: XS/75 TO XXXL/105 & KIDS SIZES
     function getProductSizeVariants(product) {
       if (product.sizeVariants && Array.isArray(product.sizeVariants) && product.sizeVariants.length > 0) {
         return product.sizeVariants.map(v => ({
@@ -1141,6 +1183,7 @@
       document.getElementById('checkoutUpiIdText').innerText = `UPI: ${upi}`;
     }
 
+    // SUBMIT ORDER TO FIREBASE & TRANSMIT TO WHATSAPP
     function submitOrder(e) {
       e.preventDefault();
       const name = document.getElementById('orderName').value.trim();
@@ -1187,11 +1230,14 @@
         tracking: { status: 'Confirmed', person: 'Assigned at store', notes: 'Order packed at Lohani Gali' }
       };
 
+      // Direct write to Firebase
       db.ref('orders/' + orderId).set(orderRecord);
 
+      // WhatsApp Invoice with GSTIN
       const message = 
 `🛍️ *NEW ORDER RECEIVED: ${orderId}*
 *AJAY STORE — JHUMARI TELAIYA*
+*GSTIN:* 20AMZPJ0161E1ZC
 ---------------------------------------
 👤 *Customer:* ${name}
 📞 *Mobile:* ${phone}
@@ -1291,21 +1337,31 @@ Please confirm delivery timeline.`;
     }
 
     // ==========================================================================
-    // ORDER TRACKING, CANCEL, SIZE-REPLACEMENT & RATINGS
+    // ORDER TRACKING: 100% VISIBLE & WORKING RETURN, REPLACE & CANCEL
     // ==========================================================================
+    let currentMatchedOrders = [];
+
     function searchOrder() {
-      let phone = document.getElementById('trackPhone').value.trim();
-      if (!phone && customerUser) phone = customerUser.phone;
-      if (!phone) return showToast("Please dial/enter 10-digit mobile number!");
+      let query = document.getElementById('trackQueryInput').value.trim();
+      if (!query && customerUser) query = customerUser.phone;
+      if (!query) return showToast("Enter 10-digit mobile number or Order ID!");
 
       const box = document.getElementById('trackResults');
-      box.innerHTML = `<p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">Searching orders for ${phone}...</p>`;
+      box.innerHTML = `<p style="font-size:0.8rem; color:var(--text-muted); text-align:center; padding:10px;">Searching orders...</p>`;
 
-      db.ref('orders').once('value').then(snap => {
-        const val = snap.val();
-        if (!val) return box.innerHTML = `<p style="font-size:0.8rem; color:var(--danger); text-align:center;">No orders found.</p>`;
-        const matches = Object.values(val).filter(o => o.customerPhone === phone);
-        if (!matches.length) return box.innerHTML = `<p style="font-size:0.8rem; color:var(--danger); text-align:center;">No orders found for ${phone}.</p>`;
+      const performFilter = (ordersPool) => {
+        const matches = ordersPool.filter(o => {
+          const matchPhone = o.customerPhone && o.customerPhone.includes(query);
+          const matchId = o.orderId && o.orderId.toLowerCase().includes(query.toLowerCase());
+          return matchPhone || matchId;
+        });
+
+        currentMatchedOrders = matches;
+
+        if (!matches.length) {
+          box.innerHTML = `<p style="font-size:0.8rem; color:var(--danger); text-align:center; padding:10px;">No orders found for "${query}". Check mobile or Order ID.</p>`;
+          return;
+        }
 
         let html = '';
         matches.forEach(o => {
@@ -1318,25 +1374,32 @@ Please confirm delivery timeline.`;
           const isShipped = s === 'shipped' || isDelivered;
           const trackInfo = o.tracking || {};
 
+          // BUTTONS: Size Replacement, Return & Cancel
           let actionButtonsHtml = '';
-          // 1. CANCEL BUTTON (Active orders only)
+          
+          // 1. SIZE EXCHANGE BUTTON (Available so customer can replace size easily)
+          if (!isCancelled && !isReturnReq && !isExchReq) {
+            actionButtonsHtml += `<button class="btn-track-action btn-exchange-order" onclick="openSizeExchangeModal('${o.orderId}')"><i class="fa-solid fa-rotate"></i> Replace / Size Exchange (साइज बदलें)</button>`;
+          }
+
+          // 2. RETURN BUTTON (Available after delivery or on delivered status)
+          if (!isCancelled && !isReturnReq && !isExchReq) {
+            actionButtonsHtml += `<button class="btn-track-action btn-return-order" onclick="openReturnModal('${o.orderId}')"><i class="fa-solid fa-box-open"></i> Return & Refund (वापसी)</button>`;
+          }
+
+          // 3. CANCEL ORDER (Before delivery)
           if (!isCancelled && !isReturnReq && !isExchReq && !isDelivered) {
             actionButtonsHtml += `<button class="btn-track-action btn-cancel-order" onclick="cancelCustomerOrder('${o.orderId}')"><i class="fa-solid fa-ban"></i> Cancel Order</button>`;
           }
 
-          // 2. DELIVER HONE KE BAAD SIZE EXCHANGE YA RETURN BUTTONS
-          if (isDelivered && !isExchReq && !isReturnReq) {
-            actionButtonsHtml += `<button class="btn-track-action btn-exchange-order" onclick="openSizeExchangeModal('${o.orderId}')"><i class="fa-solid fa-rotate"></i> Replace Size (साइज बदलें)</button>`;
-            actionButtonsHtml += `<button class="btn-track-action btn-return-order" onclick="returnCustomerOrder('${o.orderId}')"><i class="fa-solid fa-box-open"></i> Return (वापसी)</button>`;
-          }
-
+          // 4. RATE BUTTON
           if (isDelivered || o.status === 'Confirmed') {
             actionButtonsHtml += `<button class="btn-track-action btn-rate-order" onclick="openRatingModal('${o.orderId}')"><i class="fa-solid fa-star"></i> Rate Product</button>`;
           }
 
           let itemsSummary = '';
           if (Array.isArray(o.purchasedItems)) {
-            itemsSummary = o.purchasedItems.map(i => `<div style="font-size:0.75rem; color:var(--text); margin-top:2px;">• <strong>${i.name}</strong> [Size: <strong>${i.size}</strong>${i.color?`, Rang: ${i.color}`:''}]</div>`).join('');
+            itemsSummary = o.purchasedItems.map(i => `<div style="font-size:0.75rem; color:var(--text); margin-top:2px;">• <strong>${i.name}</strong> [Size: <strong>${i.size}</strong>${i.color?`, Rang: ${i.color}`:''}] — ₹${i.price}</div>`).join('');
           }
 
           html += `
@@ -1345,7 +1408,7 @@ Please confirm delivery timeline.`;
                 <span>${o.orderId}</span>
                 <span style="color:${isCancelled?'var(--danger)':(isDelivered?'var(--success)':'var(--accent)')}; text-transform:uppercase;">${o.status}</span>
               </div>
-              <div style="font-size:0.72rem; color:var(--text-muted); margin:3px 0 6px 0;">Placed: ${o.orderDate}</div>
+              <div style="font-size:0.72rem; color:var(--text-muted); margin:3px 0 6px 0;">Placed on: ${o.orderDate}</div>
               
               <div style="background:#fff; border:1px solid var(--border); padding:8px; border-radius:6px; margin-bottom:8px;">
                 ${itemsSummary}
@@ -1355,9 +1418,9 @@ Please confirm delivery timeline.`;
 
               <!-- TIMELINE -->
               <div style="margin:8px 0;">
-                <div class="track-step-row ${!isCancelled?'completed':''}"><div class="track-step-icon"><i class="fa-solid fa-check"></i></div><div><strong>Confirmed</strong></div></div>
+                <div class="track-step-row ${!isCancelled?'completed':''}"><div class="track-step-icon"><i class="fa-solid fa-check"></i></div><div><strong>Order Confirmed</strong></div></div>
                 <div class="track-step-row ${isProcessing?'completed':''}"><div class="track-step-icon"><i class="fa-solid fa-box"></i></div><div><strong>Processing & Packing</strong></div></div>
-                <div class="track-step-row ${isShipped?'completed':''}"><div class="track-step-icon"><i class="fa-solid fa-motorcycle"></i></div><div><strong>Dispatched / On Way</strong></div></div>
+                <div class="track-step-row ${isShipped?'completed':''}"><div class="track-step-icon"><i class="fa-solid fa-motorcycle"></i></div><div><strong>Dispatched / Out for Delivery</strong></div></div>
                 <div class="track-step-row ${isDelivered?'completed':''}"><div class="track-step-icon"><i class="fa-solid fa-house-circle-check"></i></div><div><strong>Delivered</strong></div></div>
               </div>
 
@@ -1365,7 +1428,7 @@ Please confirm delivery timeline.`;
                 <span>Total: ₹${o.totalAmount} (${o.paymentType})</span>
               </div>
 
-              <!-- ACTIONS -->
+              <!-- ACTION BUTTONS: EXCH, RETURN, CANCEL, RATE -->
               <div style="display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;">
                 ${actionButtonsHtml}
               </div>
@@ -1373,10 +1436,19 @@ Please confirm delivery timeline.`;
           `;
         });
         box.innerHTML = html;
+      };
+
+      // Query Firebase
+      db.ref('orders').once('value').then(snap => {
+        const val = snap.val();
+        const liveOrders = val ? (Array.isArray(val) ? val : Object.values(val)) : activeOrdersList;
+        performFilter(liveOrders);
+      }).catch(() => {
+        performFilter(activeOrdersList);
       });
     }
 
-    // 1. CANCEL ORDER (Active orders)
+    // 1. CANCEL ORDER
     function cancelCustomerOrder(orderId) {
       if (confirm(`Do you really want to cancel order ${orderId}?`)) {
         const reason = prompt("Enter cancellation reason:") || "Customer cancelled";
@@ -1389,35 +1461,33 @@ Please confirm delivery timeline.`;
       }
     }
 
-    // 2. SIZE EXCHANGE / REPLACEMENT WORKFLOW (Order deliver hone ke baad)
+    // 2. SIZE EXCHANGE / REPLACEMENT MODAL (OPENS INSTANTLY)
     function openSizeExchangeModal(orderId) {
-      db.ref(`orders/${orderId}`).once('value').then(snap => {
-        const o = snap.val();
-        if (!o || !o.purchasedItems || !o.purchasedItems.length) return showToast("Order details not found!");
-        
-        currentExchangeContext = o;
-        const firstItem = o.purchasedItems[0];
-        document.getElementById('exchOrderTitle').innerText = `Order: ${o.orderId} (Delivered)`;
-        document.getElementById('exchItemSubtitle').innerText = `Item: ${firstItem.name} • Purchased Size: ${firstItem.size}`;
+      // Find from memory cache immediately
+      const o = currentMatchedOrders.find(i => String(i.orderId) === String(orderId)) || activeOrdersList.find(i => String(i.orderId) === String(orderId));
+      if (!o || !o.purchasedItems || !o.purchasedItems.length) return showToast("Order details not found!");
 
-        // Populate new sizes based on category
-        const cat = (firstItem.category || '').toLowerCase();
-        const select = document.getElementById('exchNewSizeSelect');
-        select.innerHTML = '';
-        
-        let availableSizes = [];
-        if (cat.includes('kid') || cat.includes('child')) {
-          availableSizes = ['25', '27', '29', '32', '36'];
-        } else {
-          availableSizes = ['XS/75', 'S/80', 'M/85', 'L/90', 'XL/95', 'XXL/100', 'XXXL/105'];
-        }
+      currentExchangeContext = o;
+      const firstItem = o.purchasedItems[0];
+      document.getElementById('exchOrderTitle').innerText = `Order ID: ${o.orderId} (Status: ${o.status})`;
+      document.getElementById('exchItemSubtitle').innerText = `Garment: ${firstItem.name} • Current Size: ${firstItem.size}`;
 
-        availableSizes.forEach(s => {
-          select.innerHTML += `<option value="${s}" ${s === firstItem.size ? 'disabled' : ''}>${s} ${s === firstItem.size ? '(Current Size)' : '(Select this size)'}</option>`;
-        });
+      const cat = (firstItem.category || '').toLowerCase();
+      const select = document.getElementById('exchNewSizeSelect');
+      select.innerHTML = '';
+      
+      let availableSizes = [];
+      if (cat.includes('kid') || cat.includes('child')) {
+        availableSizes = ['25', '27', '29', '32', '36'];
+      } else {
+        availableSizes = ['XS/75', 'S/80', 'M/85', 'L/90', 'XL/95', 'XXL/100', 'XXXL/105'];
+      }
 
-        openSheet('exchangeModal');
+      availableSizes.forEach(s => {
+        select.innerHTML += `<option value="${s}" ${s === firstItem.size ? 'disabled' : ''}>${s} ${s === firstItem.size ? '(Current Purchased Size)' : '(Choose this new size)'}</option>`;
       });
+
+      openSheet('exchangeModal');
     }
 
     function closeExchangeModal() { closeAllSheets(); }
@@ -1444,13 +1514,13 @@ Please confirm delivery timeline.`;
         exchangeDetails: exchangePayload
       }).then(() => {
         closeAllSheets();
-        showToast("Size Exchange request submitted!");
+        showToast("Size Replacement request submitted!");
         searchOrder();
 
-        // Send formatted WhatsApp to store owner Amit Kumar Jain
         const message = 
 `🔄 *SIZE EXCHANGE / REPLACEMENT REQUEST*
 *AJAY STORE — JHUMARI TELAIYA*
+*GSTIN:* 20AMZPJ0161E1ZC
 ---------------------------------------
 🆔 *Order ID:* ${o.orderId}
 👤 *Customer:* ${o.customerName} (${o.customerPhone})
@@ -1463,23 +1533,52 @@ Please confirm delivery timeline.`;
 ${notes ? `📌 *Notes:* ${notes}` : ''}
 ---------------------------------------
 Store Policy: 3-Day size replacement.
-Please confirm parcel exchange.`;
+Please arrange parcel exchange.`;
 
         window.open(`https://wa.me/917979931269?text=${encodeURIComponent(message)}`, '_blank');
       });
     }
 
-    // 3. RETURN & REFUND
-    function returnCustomerOrder(orderId) {
-      const reason = prompt("Enter Return Reason (e.g. Defective, fabric issue, wrong item):");
-      if (reason) {
-        db.ref(`orders/${orderId}`).update({ status: 'Return Requested', returnReason: reason }).then(() => {
-          showToast(`Return request placed for order ${orderId}`);
-          searchOrder();
-          const msg = `RETURN REQUEST for Order ${orderId}: Reason: ${reason}. Please arrange return pickup at Jhumari Telaiya.`;
-          window.open(`https://wa.me/917979931269?text=${encodeURIComponent(msg)}`, '_blank');
-        });
-      }
+    // 3. RETURN & REFUND WORKFLOW
+    function openReturnModal(orderId) {
+      const o = currentMatchedOrders.find(i => String(i.orderId) === String(orderId)) || activeOrdersList.find(i => String(i.orderId) === String(orderId));
+      if (!o) return showToast("Order not found!");
+      currentReturnContext = o;
+      document.getElementById('returnOrderTitle').innerText = `Order: ${o.orderId} — Total: ₹${o.totalAmount}`;
+      openSheet('returnModal');
+    }
+
+    function submitReturnRequest() {
+      if (!currentReturnContext) return;
+      const o = currentReturnContext;
+      const reason = document.getElementById('returnReasonSelect').value;
+      const notes = document.getElementById('returnNotesInput').value.trim();
+
+      db.ref(`orders/${o.orderId}`).update({
+        status: 'Return Requested',
+        returnReason: reason,
+        returnNotes: notes
+      }).then(() => {
+        closeAllSheets();
+        showToast("Return & Refund request submitted!");
+        searchOrder();
+
+        const message = 
+`📦 *PRODUCT RETURN REQUEST*
+*AJAY STORE — JHUMARI TELAIYA*
+*GSTIN:* 20AMZPJ0161E1ZC
+---------------------------------------
+🆔 *Order ID:* ${o.orderId}
+👤 *Customer:* ${o.customerName} (${o.customerPhone})
+📍 *Pickup Address:* ${o.deliveryAddress}
+💵 *Refund Amount:* ₹${o.totalAmount}
+📝 *Return Reason:* ${reason}
+${notes ? `📌 *Notes:* ${notes}` : ''}
+---------------------------------------
+Please arrange return pickup.`;
+
+        window.open(`https://wa.me/917979931269?text=${encodeURIComponent(message)}`, '_blank');
+      });
     }
 
     // 4. RATINGS
@@ -1518,7 +1617,7 @@ Please confirm parcel exchange.`;
     function closeAllSheets() { document.getElementById('sheetScrim').classList.remove('active'); document.querySelectorAll('.bottom-sheet').forEach(s => s.classList.remove('open')); }
     function openCartSheet() { updateCartUI(); openSheet('cartSheet'); }
     function openOrderTrackerSheet() { 
-      if (customerUser) document.getElementById('trackPhone').value = customerUser.phone;
+      if (customerUser) document.getElementById('trackQueryInput').value = customerUser.phone;
       openSheet('trackerSheet'); 
       if (customerUser) searchOrder();
     }
