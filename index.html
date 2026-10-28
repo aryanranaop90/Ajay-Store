@@ -6,13 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>AJAY STORE — Feel Comfort For Everyone (Est. 1993)</title>
 
-  <!-- Fonts & Icons -->
+  <!-- Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
-  <!-- Firebase v10 Compat -->
+  <!-- Firebase v10 Compat (App & Realtime Database) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
@@ -38,12 +38,12 @@
       --radius-md: 14px;
       --radius-lg: 20px;
       --radius-full: 9999px;
-      --shadow-sheet: 0 -12px 45px rgba(0,0,0,0.2);
+      --shadow-sheet: 0 -12px 45px rgba(0, 0, 0, 0.2);
       --bottom-nav-height: 64px;
-      --ease: cubic-bezier(0.16,1,0.3,1);
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',-apple-system,sans-serif; -webkit-tap-highlight-color:transparent; }
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Plus Jakarta Sans',-apple-system,sans-serif; }
     body { background-color:var(--bg); color:var(--text); line-height:1.4; padding-bottom:calc(var(--bottom-nav-height) + 24px); transition:background-color 0.3s ease; }
     .app-viewport { max-width:520px; margin:0 auto; background:var(--surface); min-height:100vh; position:relative; box-shadow:0 0 50px rgba(0,0,0,0.08); }
     @media (min-width:1024px) { .app-viewport { max-width:1100px; } }
@@ -62,6 +62,7 @@
     .brand-title { font-family:'Plus Jakarta Sans',sans-serif; font-size:1.35rem; font-weight:800; letter-spacing:-0.5px; color:var(--primary); line-height:1.1; text-transform:uppercase; }
     .brand-title span { color:var(--accent); }
     .brand-subtitle { font-size:0.62rem; font-weight:700; color:var(--text-muted); letter-spacing:1.5px; text-transform:uppercase; margin-top:2px; }
+    .header-actions-cluster { display:flex; align-items:center; gap:8px; }
     .icon-circle-btn { width:38px; height:38px; border-radius:var(--radius-full); background:var(--surface-subtle); border:1px solid var(--border); color:var(--text); display:flex; align-items:center; justify-content:center; font-size:0.95rem; cursor:pointer; position:relative; }
     .count-pill { position:absolute; top:-3px; right:-3px; background:var(--primary); color:#fff; font-size:0.62rem; font-weight:800; min-width:17px; height:17px; border-radius:var(--radius-full); display:flex; align-items:center; justify-content:center; padding:0 4px; border:2px solid var(--surface); }
     .search-container { margin-top:10px; position:relative; }
@@ -168,14 +169,22 @@
     .btn-cta { width:100%; background:var(--whatsapp); color:#fff; border:none; padding:14px; border-radius:var(--radius-md); font-size:0.95rem; font-weight:800; display:flex; align-items:center; justify-content:center; gap:8px; cursor:pointer; }
 
     /* STAR RATING WIDGET */
-    .star-rating-box { display:flex; gap:6px; font-size:1.6rem; color:#cbd5e1; cursor:pointer; margin:8px 0; }
+    .star-rating-box { display:flex; gap:6px; font-size:1.6rem; color:#cbd5e1; cursor:pointer; margin:8px 0; justify-content:center; }
     .star-rating-box i.rated { color:#f59e0b; }
 
-    /* ORDER ACTION BUTTONS IN TRACKER */
-    .btn-track-action { padding:6px 12px; border-radius:var(--radius-sm); font-size:0.75rem; font-weight:800; cursor:pointer; border:none; display:inline-flex; align-items:center; gap:5px; }
+    /* ORDER ACTION BUTTONS IN TRACKER (CANCEL, RETURN & SIZE EXCHANGE) */
+    .btn-track-action { padding:7px 12px; border-radius:var(--radius-sm); font-size:0.75rem; font-weight:800; cursor:pointer; border:none; display:inline-flex; align-items:center; gap:5px; transition:0.2s; }
     .btn-cancel-order { background:#fee2e2; color:var(--danger); }
     .btn-return-order { background:#fef3c7; color:#b45309; }
+    .btn-exchange-order { background:#e0f2fe; color:#0369a1; }
     .btn-rate-order { background:#dcfce7; color:#15803d; }
+
+    /* TIMELINE */
+    .track-step-row { display:flex; gap:14px; position:relative; padding-bottom:16px; }
+    .track-step-row:not(:last-child)::after { content:''; position:absolute; left:12px; top:24px; bottom:0; width:2px; background:#cbd5e1; }
+    .track-step-row.completed:not(:last-child)::after { background:var(--success); }
+    .track-step-icon { width:26px; height:26px; border-radius:50%; background:#cbd5e1; color:#fff; display:flex; align-items:center; justify-content:center; font-size:0.75rem; z-index:2; }
+    .track-step-row.completed .track-step-icon { background:var(--success); }
 
     /* BOTTOM NAV */
     .bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:520px; height:var(--bottom-nav-height); background:rgba(255,255,255,0.96); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-top:1px solid var(--border); display:flex; justify-content:space-around; align-items:center; z-index:950; padding-bottom:max(14px,env(safe-area-inset-bottom)); }
@@ -193,7 +202,7 @@
 <body>
 
   <div class="app-viewport">
-    <!-- APP DOWNLOAD BAR -->
+    <!-- APP DOWNLOAD PROMPT BAR -->
     <div class="app-download-bar" id="appDownloadBar">
       <div><i class="fa-solid fa-mobile-screen"></i> <strong id="appDownloadTitle">Ajay Store App</strong></div>
       <a href="#" target="_blank" class="btn-download-apk" id="appDownloadBtn">Download APK</a>
@@ -232,7 +241,7 @@
       </div>
     </header>
 
-    <!-- CAROUSEL BANNERS -->
+    <!-- CAROUSEL BANNERS (WITH LIVE CAPTIONS & SUBTITLES) -->
     <div class="banner-carousel-wrap">
       <div class="banner-slides-track" id="bannerSlidesTrack"></div>
       <div class="banner-dots-row" id="bannerDotsRow"></div>
@@ -254,10 +263,14 @@
     <div style="margin:20px 14px; background:var(--surface-subtle); border:1px solid var(--border); border-radius:var(--radius-md); padding:16px;">
       <h5 style="font-size:1rem; font-weight:800; margin-bottom:4px;" id="footerStoreTitle">AJAY STORE (Est. 1993)</h5>
       <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:8px;">Station Road, Lohani Gali, Jhumari Telaiya, Koderma, Jharkhand - 825409</p>
-      <div style="display:flex; gap:8px; flex-wrap:wrap; font-size:0.75rem;">
+      <div style="display:flex; gap:8px; flex-wrap:wrap; font-size:0.75rem; margin-bottom:12px;">
         <a href="tel:7979931269" style="color:var(--primary); font-weight:700; text-decoration:none;"><i class="fa-solid fa-phone"></i> 7979931269</a>
         <span style="color:var(--text-dim);">•</span>
         <a href="https://maps.app.goo.gl/Z6hV4JjSi5NY" target="_blank" style="color:var(--accent); font-weight:700; text-decoration:none;"><i class="fa-solid fa-map-pin"></i> Directions</a>
+      </div>
+      <div style="border-top:1px dashed var(--border); padding-top:10px; font-size:0.72rem; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center;">
+        <span>Store Policy: 3-Day Return & Size Exchange</span>
+        <a href="admin.html" target="_blank" style="color:var(--accent); font-weight:800; text-decoration:underline;"><i class="fa-solid fa-lock"></i> Admin Portal</a>
       </div>
     </div>
   </div>
@@ -265,14 +278,12 @@
   <!-- BOTTOM NAVIGATION -->
   <nav class="bottom-nav">
     <button class="bottom-nav-item active" onclick="switchTab('shop', this)"><i class="fa-solid fa-store"></i><span>Shop</span></button>
-    <button class="bottom-nav-item" onclick="openOrderTrackerSheet()"><i class="fa-solid fa-clock-rotate-left"></i><span>Track & Dial</span></button>
+    <button class="bottom-nav-item" onclick="openOrderTrackerSheet()"><i class="fa-solid fa-clock-rotate-left"></i><span>Track Orders</span></button>
     <button class="bottom-nav-item" onclick="openAddressManagerSheet()"><i class="fa-solid fa-location-dot"></i><span>Address</span></button>
     <button class="bottom-nav-item" onclick="openCartSheet()"><i class="fa-solid fa-bag-shopping"></i><span>Bag</span><span class="nav-badge" id="bottomNavCartBadge">0</span></button>
   </nav>
 
-  <!-- ==========================================================================
-       FLIPKART-STYLE PRODUCT DETAIL MODAL
-       ========================================================================== -->
+  <!-- FLIPKART-STYLE PRODUCT DETAIL MODAL -->
   <div class="flipkart-modal-overlay" id="productDetailModal">
     <div class="flipkart-modal-card">
       <button class="fk-close-btn" onclick="closeProductDetailModal()">&times;</button>
@@ -335,7 +346,7 @@
 
   <div class="sheet-scrim" id="sheetScrim" onclick="closeAllSheets()"></div>
 
-  <!-- CART SHEET WITH CUSTOM DELIVERY CHARGE -->
+  <!-- CART SHEET -->
   <div class="bottom-sheet" id="cartSheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header"><h4>Shopping Bag</h4><button onclick="closeAllSheets()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button></div>
@@ -426,23 +437,62 @@
   </div>
 
   <!-- ==========================================================================
-       ORDER TRACKING, DIALING, CANCEL, RETURN & RATE SHEET
+       ORDER TRACKING, CANCEL, RETURN & REPLACE
        ========================================================================== -->
   <div class="bottom-sheet" id="trackerSheet">
     <div class="sheet-handle"></div>
     <div class="sheet-header">
-      <h4><i class="fa-solid fa-phone-volume"></i> Track Orders by Phone Number</h4>
+      <h4><i class="fa-solid fa-phone-volume"></i> Track Orders by Mobile Number</h4>
       <button onclick="closeAllSheets()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
     </div>
     <div class="sheet-body">
       <div class="form-group">
-        <label>Enter Registered Mobile Number to Dial / Search</label>
+        <label>Enter Registered Mobile Number</label>
         <div style="display:flex; gap:8px;">
           <input type="tel" id="trackPhone" pattern="[0-9]{10}" placeholder="10-digit number (e.g. 7979931269)" />
           <button class="btn-action-primary" style="background:var(--primary); padding:0 16px; border-radius:var(--radius-sm);" onclick="searchOrder()">Search</button>
         </div>
       </div>
       <div id="trackResults"></div>
+    </div>
+  </div>
+
+  <!-- SIZE EXCHANGE / REPLACEMENT SHEET (DELIVER HONE KE BAAD) -->
+  <div class="bottom-sheet" id="exchangeModal">
+    <div class="sheet-handle"></div>
+    <div class="sheet-header">
+      <h4><i class="fa-solid fa-rotate"></i> Size Exchange / Replacement</h4>
+      <button onclick="closeExchangeModal()" style="border:none; background:none; font-size:1.2rem; cursor:pointer;">&times;</button>
+    </div>
+    <div class="sheet-body">
+      <div style="background:var(--surface-subtle); padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:12px;">
+        <div style="font-size:0.85rem; font-weight:800;" id="exchOrderTitle"></div>
+        <div style="font-size:0.75rem; color:var(--text-muted);" id="exchItemSubtitle"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Select New Size Needed (नया साइज चुनें) *</label>
+        <select id="exchNewSizeSelect" class="form-group">
+          <!-- Populated dynamically based on category -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Reason for Size Change / Replacement *</label>
+        <select id="exchReasonSelect" class="form-group">
+          <option value="Size chhota ho raha hai (Too Small / Tight)">Size chhota ho raha hai (Too Small / Tight)</option>
+          <option value="Size bada ho raha hai (Too Large / Loose)">Size bada ho raha hai (Too Large / Loose)</option>
+          <option value="Fitting pasand nahi aayi (Fitting issue)">Fitting pasand nahi aayi (Fitting issue)</option>
+          <option value="Kapde me defect hai (Defect in piece)">Kapde me defect hai (Defect in piece)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Pickup & Delivery Notes (Optional)</label>
+        <input type="text" id="exchCustomerNotes" placeholder="e.g. Please bring size L tomorrow morning" />
+      </div>
+
+      <button class="btn-cta" onclick="submitSizeExchangeRequest()"><i class="fa-brands fa-whatsapp"></i> Confirm Size Replacement via WhatsApp</button>
     </div>
   </div>
 
@@ -455,8 +505,6 @@
     </div>
     <div class="sheet-body" style="text-align:center;">
       <h5 id="ratingProductTitle" style="font-size:1rem; font-weight:800; margin-bottom:4px;"></h5>
-      <div style="font-size:0.78rem; color:var(--text-muted);" id="ratingOrderMeta"></div>
-      
       <div class="star-rating-box" id="starRatingBox">
         <i class="fa-solid fa-star" onclick="setRatingStars(1)"></i>
         <i class="fa-solid fa-star" onclick="setRatingStars(2)"></i>
@@ -465,12 +513,11 @@
         <i class="fa-solid fa-star" onclick="setRatingStars(5)"></i>
       </div>
       <div id="ratingTextFeedback" style="font-size:0.8rem; font-weight:700; color:var(--accent); margin-bottom:12px;">Tap stars to rate (1 to 5)</div>
-
       <div class="form-group" style="text-align:left;">
-        <label>Your Review / Feedback</label>
-        <textarea id="ratingCommentInput" rows="2" placeholder="Tell other customers about the fabric, comfort, and fitting..."></textarea>
+        <label>Your Review</label>
+        <textarea id="ratingCommentInput" rows="2" placeholder="Tell us about the fabric comfort and fitting..."></textarea>
       </div>
-      <button class="btn-cta" onclick="submitProductRating()"><i class="fa-solid fa-paper-plane"></i> Submit Rating & Review</button>
+      <button class="btn-cta" onclick="submitProductRating()"><i class="fa-solid fa-paper-plane"></i> Submit Rating</button>
     </div>
   </div>
 
@@ -481,28 +528,9 @@
     <div class="sheet-body" id="wishlistList"></div>
   </div>
 
-  <!-- INTERSTITIAL OFFER BANNER MODAL -->
-  <div class="interstitial-modal-overlay" id="interstitialModal">
-    <div class="interstitial-card">
-      <button class="interstitial-close-btn" onclick="closeInterstitial()">&times;</button>
-      <img id="interstitialImg" src="" style="width:100%; height:150px; object-fit:cover; display:none;" alt="Offer" />
-      <div style="padding:18px; text-align:center;">
-        <span style="font-size:0.65rem; font-weight:800; background:#f59e0b; color:#000; padding:2px 8px; border-radius:9999px;">Special Offer</span>
-        <h3 id="interstitialTitle" style="font-size:1.2rem; font-weight:800; margin:8px 0 4px 0;">Special Offer!</h3>
-        <p id="interstitialDesc" style="font-size:0.78rem; color:#cbd5e1; margin-bottom:12px;"></p>
-        <div style="background:rgba(255,255,255,0.08); padding:8px; border-radius:var(--radius-sm); border:1px dashed var(--accent); margin-bottom:12px;">
-          <div id="interstitialCode" style="font-size:1.1rem; font-weight:800; color:var(--accent);">WELCOME50</div>
-        </div>
-        <button class="btn-cta" onclick="applyInterstitialOfferCode()">Apply Coupon & Shop</button>
-      </div>
-    </div>
-  </div>
-
   <div class="app-toast" id="appToast">Notification</div>
 
-  <!-- ==========================================================================
-       JAVASCRIPT LOGIC
-       ========================================================================== -->
+  <!-- SCRIPT -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBwrRLKt8pYSYiuULgTCGgCTIXLD77nPXs",
@@ -541,11 +569,10 @@
     let paymentMode = 'Cash On Delivery';
     let appliedCouponDiscount = 0;
 
-    // RATING MODAL STATE
     let currentRatingContext = null;
     let selectedStarsValue = 5;
+    let currentExchangeContext = null;
 
-    // THEME ENGINE
     function applyDynamicTheme(themeObj) {
       if (!themeObj) return;
       const root = document.documentElement;
@@ -554,7 +581,6 @@
       if (themeObj.bg) { root.style.setProperty('--bg', themeObj.bg); document.body.style.backgroundColor = themeObj.bg; }
     }
 
-    // SMART IMAGE LINK CLEANER
     function cleanImgUrl(url) {
       if (!url || typeof url !== 'string') return '';
       url = url.trim();
@@ -583,7 +609,6 @@
       if (img.nextElementSibling) img.nextElementSibling.style.display = 'flex';
     }
 
-    // FIREBASE LISTENERS
     function setupFirebaseListeners() {
       db.ref('products').on('value', snap => {
         const val = snap.val();
@@ -614,11 +639,9 @@
           document.getElementById('storeMainName').innerHTML = `${val.storeName || 'AJAY STORE'}<span>.</span>`;
           document.getElementById('storeMainTagline').innerText = val.storeTagline || 'FEEL COMFORT FOR EVERYONE • EST. 1993';
           document.getElementById('footerStoreTitle').innerText = `${val.storeName || 'AJAY STORE'} (Est. 1993)`;
-
           if (val.theme) applyDynamicTheme(val.theme);
           renderBannerCarousel();
           updateCheckoutQrUI();
-          triggerInterstitialOffer(val.interstitial);
           updateAppDownloadBar(val.appDownload);
         }
       });
@@ -633,26 +656,7 @@
       } else { bar.style.display = 'none'; }
     }
 
-    let interstitialShown = false;
-    function triggerInterstitialOffer(interObj) {
-      if (!interObj || interObj.enabled === false || interstitialShown) return;
-      interstitialShown = true;
-      document.getElementById('interstitialTitle').innerText = interObj.title || 'Special Offer!';
-      document.getElementById('interstitialDesc').innerText = interObj.desc || '';
-      document.getElementById('interstitialCode').innerText = interObj.coupon || 'WELCOME50';
-      const imgEl = document.getElementById('interstitialImg');
-      if (interObj.image) { imgEl.src = cleanImgUrl(interObj.image); imgEl.style.display = 'block'; } else imgEl.style.display = 'none';
-      setTimeout(() => document.getElementById('interstitialModal').classList.add('active'), 1200);
-    }
-    function closeInterstitial() { document.getElementById('interstitialModal').classList.remove('active'); }
-    function applyInterstitialOfferCode() {
-      const code = document.getElementById('interstitialCode').innerText.trim();
-      applyCouponDirect(code);
-      closeInterstitial();
-      showToast(`Coupon ${code} applied!`);
-    }
-
-    // CAROUSEL
+    // CAROUSEL WITH DYNAMIC CAPTIONS & SUBTITLES
     let currentBannerIdx = 0;
     function renderBannerCarousel() {
       const track = document.getElementById('bannerSlidesTrack');
@@ -675,7 +679,7 @@
           <div class="banner-slide-content">
             <span style="font-size:0.68rem; font-weight:800; color:var(--accent); letter-spacing:1px; text-transform:uppercase;">Official Store</span>
             <h2>${b.title}</h2>
-            <p>${b.subtitle}</p>
+            <p>${b.subtitle || storeSettings.bannerSubtitle}</p>
             <div class="coupon-chip" onclick="event.stopPropagation(); applyCouponDirect('${storeSettings.bannerPromo || 'WELCOME50'}')">
               CODE: <strong>${storeSettings.bannerPromo || 'WELCOME50'}</strong>
             </div>
@@ -786,7 +790,7 @@
       return map[(colorName||'').toLowerCase().trim()] || '#cbd5e1';
     }
 
-    // FLIPKART PRODUCT MODAL & GALLERY
+    // FLIPKART PRODUCT DETAILS MODAL
     function openFlipkartProductModal(productId) {
       const p = catalog.find(i => String(i.id) === String(productId));
       if (!p) return;
@@ -835,7 +839,6 @@
 
       renderFkColours(p);
       renderFkSizes(p);
-
       document.getElementById('productDetailModal').classList.add('active');
     }
 
@@ -930,6 +933,7 @@
         cart.push({
           id: p.id,
           name: p.name,
+          category: p.category,
           price: sizeObj.rate,
           size: sizeObj.size,
           color: chosenColor,
@@ -993,7 +997,6 @@
       ];
     }
 
-    // ACCURATE CUSTOM DELIVERY CHARGE CALCULATION
     function calculateCartDeliveryFee(subtotal) {
       if (subtotal === 0 || cart.length === 0) return 0;
       let maxItemDelivery = 0;
@@ -1138,7 +1141,6 @@
       document.getElementById('checkoutUpiIdText').innerText = `UPI: ${upi}`;
     }
 
-    // SUBMIT ORDER TO FIREBASE & TRANSMIT TO WHATSAPP
     function submitOrder(e) {
       e.preventDefault();
       const name = document.getElementById('orderName').value.trim();
@@ -1185,7 +1187,6 @@
         tracking: { status: 'Confirmed', person: 'Assigned at store', notes: 'Order packed at Lohani Gali' }
       };
 
-      // Direct write to Firebase
       db.ref('orders/' + orderId).set(orderRecord);
 
       const message = 
@@ -1290,7 +1291,7 @@ Please confirm delivery timeline.`;
     }
 
     // ==========================================================================
-    // ORDER TRACKING BY PHONE DIALING, CANCEL, RETURN & RATINGS
+    // ORDER TRACKING, CANCEL, SIZE-REPLACEMENT & RATINGS
     // ==========================================================================
     function searchOrder() {
       let phone = document.getElementById('trackPhone').value.trim();
@@ -1312,20 +1313,30 @@ Please confirm delivery timeline.`;
           const isDelivered = s === 'delivered';
           const isCancelled = s === 'cancelled';
           const isReturnReq = s === 'return requested';
+          const isExchReq = s === 'exchange requested';
           const isProcessing = s === 'processing' || s === 'shipped' || isDelivered;
           const isShipped = s === 'shipped' || isDelivered;
           const trackInfo = o.tracking || {};
 
-          // Action Buttons: Cancel vs Return vs Rate
           let actionButtonsHtml = '';
-          if (!isCancelled && !isReturnReq && !isDelivered) {
+          // 1. CANCEL BUTTON (Active orders only)
+          if (!isCancelled && !isReturnReq && !isExchReq && !isDelivered) {
             actionButtonsHtml += `<button class="btn-track-action btn-cancel-order" onclick="cancelCustomerOrder('${o.orderId}')"><i class="fa-solid fa-ban"></i> Cancel Order</button>`;
           }
-          if (isDelivered) {
-            actionButtonsHtml += `<button class="btn-track-action btn-return-order" onclick="returnCustomerOrder('${o.orderId}')"><i class="fa-solid fa-rotate-left"></i> Return / Exchange</button>`;
+
+          // 2. DELIVER HONE KE BAAD SIZE EXCHANGE YA RETURN BUTTONS
+          if (isDelivered && !isExchReq && !isReturnReq) {
+            actionButtonsHtml += `<button class="btn-track-action btn-exchange-order" onclick="openSizeExchangeModal('${o.orderId}')"><i class="fa-solid fa-rotate"></i> Replace Size (साइज बदलें)</button>`;
+            actionButtonsHtml += `<button class="btn-track-action btn-return-order" onclick="returnCustomerOrder('${o.orderId}')"><i class="fa-solid fa-box-open"></i> Return (वापसी)</button>`;
           }
+
           if (isDelivered || o.status === 'Confirmed') {
             actionButtonsHtml += `<button class="btn-track-action btn-rate-order" onclick="openRatingModal('${o.orderId}')"><i class="fa-solid fa-star"></i> Rate Product</button>`;
+          }
+
+          let itemsSummary = '';
+          if (Array.isArray(o.purchasedItems)) {
+            itemsSummary = o.purchasedItems.map(i => `<div style="font-size:0.75rem; color:var(--text); margin-top:2px;">• <strong>${i.name}</strong> [Size: <strong>${i.size}</strong>${i.color?`, Rang: ${i.color}`:''}]</div>`).join('');
           }
 
           html += `
@@ -1334,8 +1345,12 @@ Please confirm delivery timeline.`;
                 <span>${o.orderId}</span>
                 <span style="color:${isCancelled?'var(--danger)':(isDelivered?'var(--success)':'var(--accent)')}; text-transform:uppercase;">${o.status}</span>
               </div>
-              <div style="font-size:0.72rem; color:var(--text-muted); margin:3px 0 8px 0;">Placed: ${o.orderDate}</div>
+              <div style="font-size:0.72rem; color:var(--text-muted); margin:3px 0 6px 0;">Placed: ${o.orderDate}</div>
               
+              <div style="background:#fff; border:1px solid var(--border); padding:8px; border-radius:6px; margin-bottom:8px;">
+                ${itemsSummary}
+              </div>
+
               ${trackInfo.person ? `<div style="background:rgba(212,163,115,0.12); padding:6px 10px; border-radius:6px; font-size:0.75rem; margin-bottom:8px;"><strong>Delivery Partner:</strong> ${trackInfo.person}<br>${trackInfo.notes?`<span>Note: ${trackInfo.notes}</span>`:''}</div>`:''}
 
               <!-- TIMELINE -->
@@ -1350,7 +1365,7 @@ Please confirm delivery timeline.`;
                 <span>Total: ₹${o.totalAmount} (${o.paymentType})</span>
               </div>
 
-              <!-- ACTIONS: CANCEL, RETURN, RATE -->
+              <!-- ACTIONS -->
               <div style="display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;">
                 ${actionButtonsHtml}
               </div>
@@ -1361,47 +1376,117 @@ Please confirm delivery timeline.`;
       });
     }
 
-    // 1. CANCEL ORDER
+    // 1. CANCEL ORDER (Active orders)
     function cancelCustomerOrder(orderId) {
       if (confirm(`Do you really want to cancel order ${orderId}?`)) {
-        const reason = prompt("Please tell us the reason for cancellation:") || "Customer requested cancellation";
-        db.ref(`orders/${orderId}`).update({
-          status: 'Cancelled',
-          cancelReason: reason
-        }).then(() => {
+        const reason = prompt("Enter cancellation reason:") || "Customer cancelled";
+        db.ref(`orders/${orderId}`).update({ status: 'Cancelled', cancelReason: reason }).then(() => {
           showToast(`Order ${orderId} has been Cancelled`);
           searchOrder();
-          // Alert Admin Amit Kumar Jain via WhatsApp
           const msg = `ALERT: Order ${orderId} has been CANCELLED by customer. Reason: ${reason}. Please acknowledge.`;
           window.open(`https://wa.me/917979931269?text=${encodeURIComponent(msg)}`, '_blank');
         });
       }
     }
 
-    // 2. RETURN / EXCHANGE ORDER
+    // 2. SIZE EXCHANGE / REPLACEMENT WORKFLOW (Order deliver hone ke baad)
+    function openSizeExchangeModal(orderId) {
+      db.ref(`orders/${orderId}`).once('value').then(snap => {
+        const o = snap.val();
+        if (!o || !o.purchasedItems || !o.purchasedItems.length) return showToast("Order details not found!");
+        
+        currentExchangeContext = o;
+        const firstItem = o.purchasedItems[0];
+        document.getElementById('exchOrderTitle').innerText = `Order: ${o.orderId} (Delivered)`;
+        document.getElementById('exchItemSubtitle').innerText = `Item: ${firstItem.name} • Purchased Size: ${firstItem.size}`;
+
+        // Populate new sizes based on category
+        const cat = (firstItem.category || '').toLowerCase();
+        const select = document.getElementById('exchNewSizeSelect');
+        select.innerHTML = '';
+        
+        let availableSizes = [];
+        if (cat.includes('kid') || cat.includes('child')) {
+          availableSizes = ['25', '27', '29', '32', '36'];
+        } else {
+          availableSizes = ['XS/75', 'S/80', 'M/85', 'L/90', 'XL/95', 'XXL/100', 'XXXL/105'];
+        }
+
+        availableSizes.forEach(s => {
+          select.innerHTML += `<option value="${s}" ${s === firstItem.size ? 'disabled' : ''}>${s} ${s === firstItem.size ? '(Current Size)' : '(Select this size)'}</option>`;
+        });
+
+        openSheet('exchangeModal');
+      });
+    }
+
+    function closeExchangeModal() { closeAllSheets(); }
+
+    function submitSizeExchangeRequest() {
+      if (!currentExchangeContext) return;
+      const o = currentExchangeContext;
+      const firstItem = o.purchasedItems[0];
+      const newSize = document.getElementById('exchNewSizeSelect').value;
+      const reason = document.getElementById('exchReasonSelect').value;
+      const notes = document.getElementById('exchCustomerNotes').value.trim();
+
+      const exchangePayload = {
+        item: firstItem.name,
+        oldSize: firstItem.size,
+        newSize: newSize,
+        reason: reason,
+        notes: notes,
+        date: new Date().toLocaleDateString()
+      };
+
+      db.ref(`orders/${o.orderId}`).update({
+        status: 'Exchange Requested',
+        exchangeDetails: exchangePayload
+      }).then(() => {
+        closeAllSheets();
+        showToast("Size Exchange request submitted!");
+        searchOrder();
+
+        // Send formatted WhatsApp to store owner Amit Kumar Jain
+        const message = 
+`🔄 *SIZE EXCHANGE / REPLACEMENT REQUEST*
+*AJAY STORE — JHUMARI TELAIYA*
+---------------------------------------
+🆔 *Order ID:* ${o.orderId}
+👤 *Customer:* ${o.customerName} (${o.customerPhone})
+📍 *Pickup Address:* ${o.deliveryAddress}
+---------------------------------------
+👕 *Item:* ${firstItem.name}
+❌ *Current Purchased Size:* ${firstItem.size}
+✅ *New Desired Size Needed:* ${newSize}
+📝 *Exchange Reason:* ${reason}
+${notes ? `📌 *Notes:* ${notes}` : ''}
+---------------------------------------
+Store Policy: 3-Day size replacement.
+Please confirm parcel exchange.`;
+
+        window.open(`https://wa.me/917979931269?text=${encodeURIComponent(message)}`, '_blank');
+      });
+    }
+
+    // 3. RETURN & REFUND
     function returnCustomerOrder(orderId) {
-      const reason = prompt("Enter Return/Exchange Reason (e.g. Size fitting issue, defective, wrong color):");
+      const reason = prompt("Enter Return Reason (e.g. Defective, fabric issue, wrong item):");
       if (reason) {
-        db.ref(`orders/${orderId}`).update({
-          status: 'Return Requested',
-          returnReason: reason
-        }).then(() => {
+        db.ref(`orders/${orderId}`).update({ status: 'Return Requested', returnReason: reason }).then(() => {
           showToast(`Return request placed for order ${orderId}`);
           searchOrder();
-          // Inform Admin Amit Kumar Jain via WhatsApp
-          const msg = `RETURN/EXCHANGE REQUEST for Order ${orderId}: Reason: ${reason}. Customer requested pickup/exchange.`;
+          const msg = `RETURN REQUEST for Order ${orderId}: Reason: ${reason}. Please arrange return pickup at Jhumari Telaiya.`;
           window.open(`https://wa.me/917979931269?text=${encodeURIComponent(msg)}`, '_blank');
         });
       }
     }
 
-    // 3. PRODUCT RATING & REVIEWS
+    // 4. RATINGS
     function openRatingModal(orderId) {
       currentRatingContext = orderId;
-      selectedStarsValue = 5;
-      document.getElementById('ratingProductTitle').innerText = `Rate Your Experience for ${orderId}`;
-      document.getElementById('ratingOrderMeta').innerText = "Share your rating for garments & service";
       setRatingStars(5);
+      document.getElementById('ratingProductTitle').innerText = `Rate Order ${orderId}`;
       openSheet('ratingModal');
     }
     function closeRatingModal() { closeAllSheets(); }
@@ -1409,9 +1494,7 @@ Please confirm delivery timeline.`;
     function setRatingStars(val) {
       selectedStarsValue = val;
       const stars = document.querySelectorAll('#starRatingBox i');
-      stars.forEach((s, idx) => {
-        s.classList.toggle('rated', idx < val);
-      });
+      stars.forEach((s, idx) => s.classList.toggle('rated', idx < val));
       const labels = ["Poor (1/5)", "Fair (2/5)", "Good (3/5)", "Very Good (4/5)", "Excellent! (5/5)"];
       document.getElementById('ratingTextFeedback').innerText = labels[val - 1];
     }
@@ -1419,21 +1502,18 @@ Please confirm delivery timeline.`;
     function submitProductRating() {
       if (!currentRatingContext) return;
       const comment = document.getElementById('ratingCommentInput').value.trim();
-
-      const ratingObj = {
+      db.ref(`ratings/${currentRatingContext}`).set({
         orderId: currentRatingContext,
         stars: selectedStarsValue,
         comment: comment || 'Very comfortable fitting and pure fabric!',
         date: new Date().toLocaleDateString()
-      };
-
-      db.ref(`ratings/${currentRatingContext}`).set(ratingObj).then(() => {
+      }).then(() => {
         closeAllSheets();
         showToast(`Thank you! Rated ${selectedStarsValue} Stars ⭐`);
       });
     }
 
-    // MODALS
+    // DRAWER / MODAL HELPERS
     function openSheet(id) { closeAllSheets(); document.getElementById('sheetScrim').classList.add('active'); document.getElementById(id).classList.add('open'); }
     function closeAllSheets() { document.getElementById('sheetScrim').classList.remove('active'); document.querySelectorAll('.bottom-sheet').forEach(s => s.classList.remove('open')); }
     function openCartSheet() { updateCartUI(); openSheet('cartSheet'); }
